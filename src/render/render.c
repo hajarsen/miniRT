@@ -40,12 +40,12 @@ int	render(t_minirt *data)
 		data->scene->plane_count == 0 && 
 		data->scene->cylinder_count == 0)
 	{
-		printf("⚠️  No objects in scene. Using test pattern.\n");
+		printf("No objects in scene. Using test pattern.\n");
 		render_test_pattern(data);
 	}
 	else
 	{
-		printf("🎨 Ray tracing %d objects...\n",
+		printf("Ray tracing %d objects...\n",
 			data->scene->sphere_count + data->scene->plane_count + 
 			data->scene->cylinder_count);
 		render_scene(data); 
