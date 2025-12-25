@@ -1,5 +1,5 @@
 #include "parser.h"
-
+// render.c 
 
 void	render_test_pattern(t_minirt *data)
 {

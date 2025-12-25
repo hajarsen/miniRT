@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <float.h>
-#include <mlx.h>
+#include "../minilibx-linux/mlx.h"
 #include <X11/keysym.h> 
 #include <ctype.h>
 #include <string.h>
@@ -86,6 +86,15 @@ typedef struct s_ambient
     t_color     color;
 } t_ambient;
 
+// typedef struct s_camera
+// {
+//     t_point3    viewpoint;
+//     t_vector    orientation;
+//     double      fov;
+//     t_vector    horizontal;
+//     t_vector    vertical;
+//     t_point3    pixel00_loc;
+// } t_camera;
 typedef struct s_camera
 {
     t_point3    viewpoint;
@@ -94,6 +103,8 @@ typedef struct s_camera
     t_vector    horizontal;
     t_vector    vertical;
     t_point3    pixel00_loc;
+    t_vector    pixel_delta_u;  // ADD THIS
+    t_vector    pixel_delta_v;  // ADD THIS
 } t_camera;
 
 typedef struct s_light

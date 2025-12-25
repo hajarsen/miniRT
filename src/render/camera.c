@@ -1,5 +1,5 @@
 #include "parser.h"
-
+// camera.c
 static void	viewport_dimensions(t_camera *cam, double aspect_ratio,
 		double *vp_width, double *vp_height)
 {
@@ -19,11 +19,13 @@ static void	build_camera_basis(t_camera *cam, t_vector *u, t_vector *v, t_vector
 	t_vector	world_up;
 
 	*w = vec_unit(vec_mult(cam->orientation, -1.0));
+	
 	world_up = (t_vector){0, 1, 0};
-	if (fabs(cam->orientation.y) > 0.999)
+	if (fabs(w->y) > 0.999)
 		world_up = (t_vector){1, 0, 0};
-	*u = vec_unit(vec_cross(*w, world_up));
-	*v = vec_cross(*u, *w);
+	
+	*u = vec_unit(vec_cross(world_up, *w));
+	*v = vec_cross(*w, *u);
 }
 
 static void	calculate_pixel00_location(t_camera *cam, double focal_length)

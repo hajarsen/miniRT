@@ -2,8 +2,7 @@
 
 #define EPSILON_SHADOW 0.0001
 
-
-t_ray get_ray(t_camera *cam, double u, double v)
+t_ray	get_ray(t_camera *cam, double u, double v)
 {
 	t_ray		ray;
 	t_point3	viewport_point;
@@ -14,7 +13,7 @@ t_ray get_ray(t_camera *cam, double u, double v)
 	viewport_point = vec_add(viewport_point, vec_mult(cam->vertical, v));
 	ray.direction = vec_sub(viewport_point, ray.origin);
 	ray.direction = vec_unit(ray.direction);
-	return ray;
+	return (ray);
 }
 
 int	is_in_shadow(t_scene *scene, t_hit_record *rec, t_light *light)
@@ -27,13 +26,35 @@ int	is_in_shadow(t_scene *scene, t_hit_record *rec, t_light *light)
 	light_dir = vec_sub(light->position, rec->p);
 	light_dist = vec_length(light_dir);
 	shadow_ray.direction = vec_unit(light_dir);
-	shadow_ray.origin = vec_add(rec->p, vec_mult(rec->normal, EPSILON_SHADOW));
-	
-	if (hit_anything(scene, shadow_ray, (t_range){0.0001, light_dist}, &temp_rec))
+	shadow_ray.origin = vec_add(rec->p, vec_mult(rec->normal, 0.01));// Increased from 0.001. Not the final value
+	if (hit_anything(scene, shadow_ray, (t_range){0.01, light_dist - 0.01}, &temp_rec))
 		return (1);
 	return (0);
 }
 
+// t_color	calculate_color(t_minirt *data, t_hit_record *rec)
+// {
+// 	t_color		ambient;
+// 	t_color		diffuse;
+// 	t_color		final_color;
+// 	t_vector	light_dir;
+// 	double		diffuse_strength;
+
+// 	ambient.x = rec->color.x * data->scene->ambient.color.x * data->scene->ambient.ratio;
+// 	ambient.y = rec->color.y * data->scene->ambient.color.y * data->scene->ambient.ratio;
+// 	ambient.z = rec->color.z * data->scene->ambient.color.z * data->scene->ambient.ratio;
+// 	if (is_in_shadow(data->scene, rec, &data->scene->light))
+// 		return (ambient);
+// 	light_dir = vec_unit(vec_sub(data->scene->light.position, rec->p));
+// 	diffuse_strength *= data->scene->light.brightness;
+// 	diffuse.x = rec->color.x * data->scene->light.color.x * diffuse_strength;
+// 	diffuse.y = rec->color.y * data->scene->light.color.y * diffuse_strength;
+// 	diffuse.z = rec->color.z * data->scene->light.color.z * diffuse_strength;
+// 	final_color.x = ambient.x + diffuse.x;
+// 	final_color.y = ambient.y + diffuse.y;
+// 	final_color.z = ambient.z + diffuse.z;
+// 	return (final_color);
+// }
 t_color	calculate_color(t_minirt *data, t_hit_record *rec)
 {
 	t_color		ambient;
@@ -62,12 +83,13 @@ t_color	calculate_color(t_minirt *data, t_hit_record *rec)
 
 static int	color_to_int(t_color color)
 {
-	int	r, g, b;
-	
+	int	r;
+	int	g;
+	int	b;
+
 	r = (int)(255.999 * fmin(1.0, color.x));
 	g = (int)(255.999 * fmin(1.0, color.y));
 	b = (int)(255.999 * fmin(1.0, color.z));
-	
 	return (r << 16 | g << 8 | b);
 }
 
@@ -81,12 +103,10 @@ static int	trace_pixel(t_minirt *data, double u, double v)
 	if (hit_anything(data->scene, ray, (t_range){0.0001, INFINITY}, &rec))
 	{
 		color = calculate_color(data, &rec);
-		return color_to_int(color);
+		return (color_to_int(color));
 	}
-	else
-		return 0x000000; 
+	return (0x000000);
 }
-
 
 void	render_scene(t_minirt *data)
 {
@@ -97,7 +117,6 @@ void	render_scene(t_minirt *data)
 	int		color;
 
 	setup_camera(&data->scene->camera, data->img.width, data->img.height);
-	
 	y = 0;
 	while (y < data->img.height)
 	{
@@ -106,7 +125,6 @@ void	render_scene(t_minirt *data)
 		{
 			u = (double)x / (data->img.width - 1);
 			v = (double)(data->img.height - 1 - y) / (data->img.height - 1);
-			
 			color = trace_pixel(data, u, v);
 			put_pixel(&data->img, x, y, color);
 			x++;
