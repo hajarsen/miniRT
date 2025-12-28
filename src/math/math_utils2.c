@@ -41,27 +41,3 @@ t_vector	vect_invert(t_vector v)
 	res.z = -v.z;
 	return (res);
 }
-
-t_vector	normalize(t_vector v)
-{
-	float		length;
-	t_vector	res;
-
-	length = vector_length(v);
-	if (length == 0)
-		return (v);
-	res.x = v.x / length;
-	res.y = v.y / length;
-	res.z = v.z / length;
-	return (res);
-}
-
-t_vector	vect_scal(t_vector v, float scal)
-{
-	t_vector	res;
-
-	res.x = v.x * scal;
-	res.y = v.y * scal;
-	res.z = v.z * scal;
-	return (res);
-}
