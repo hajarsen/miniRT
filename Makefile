@@ -13,15 +13,12 @@ SRC = src/core/minirt.c \
       src/parsing/parse_float.c \
       src/parsing/parse_vector.c \
       src/parsing/parse_colors.c \
-      src/parsing/parse_ambient.c \
-      src/parsing/parse_light.c \
-      src/parsing/parse_sphere.c \
-      src/parsing/parse_plane.c \
-      src/parsing/parse_cylinder.c \
+      src/parsing/parse_objects.c \
       src/math/math_utils.c \
       src/math/math_utils1.c \
       src/math/math_utils2.c \
       src/math/math_utils3.c \
+      src/math/math_utils4.c \
       src/render/render.c \
       src/render/camera.c \
       src/render/intersections.c \
