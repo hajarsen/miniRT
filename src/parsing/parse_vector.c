@@ -1,5 +1,5 @@
 #include "parser.h"
-// parse_10.c
+
 bool parse_vector(t_vector *vec, char *str, double min_val, double max_val)
 {
     char **components;

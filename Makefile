@@ -5,6 +5,7 @@ LDFLAGS = -lm -lmlx -lXext -lX11
 
 SRC = src/core/minirt.c \
       src/core/render_rt.c \
+      src/core/render_utils.c \
       src/core/window.c \
       src/parsing/parser.c \
       src/parsing/parser_utils.c \
@@ -24,7 +25,10 @@ SRC = src/core/minirt.c \
       src/math/math_utils3.c \
       src/render/render.c \
       src/render/camera.c \
-      src/render/intersections.c \
+      src/render/intersections_cylinder.c \
+      src/render/intersections_manager.c \
+      src/render/intersections_simple.c \
+      src/render/intersections_utils.c \
       src/utils/array.c
 
 GNL_SRC = lib/get_next_line/get_next_line.c \

@@ -87,15 +87,6 @@ typedef struct s_ambient
     t_color     color;
 } t_ambient;
 
-// typedef struct s_camera
-// {
-//     t_point3    viewpoint;
-//     t_vector    orientation;
-//     double      fov;
-//     t_vector    horizontal;
-//     t_vector    vertical;
-//     t_point3    pixel00_loc;
-// } t_camera;
 typedef struct s_camera
 {
     t_point3    viewpoint;
@@ -104,8 +95,8 @@ typedef struct s_camera
     t_vector    horizontal;
     t_vector    vertical;
     t_point3    pixel00_loc;
-    t_vector    pixel_delta_u;  // ADD THIS
-    t_vector    pixel_delta_v;  // ADD THIS
+    t_vector    pixel_delta_u;
+    t_vector    pixel_delta_v;
 } t_camera;
 
 typedef struct s_light
@@ -130,6 +121,16 @@ typedef struct s_scene
     t_cylinder  *cylinders;
     int         cylinder_count;
 } t_scene;
+
+typedef struct s_eq
+{
+    double  a;
+    double  b;
+    double  half_b;
+    double  c;
+    double  discriminant;
+    double  sqrtd;
+}   t_eq;
 
 typedef struct s_img
 {
@@ -224,7 +225,10 @@ void        setup_camera(t_camera *cam, int img_width, int img_height);
 t_vector    calculate_color(t_minirt *data, t_hit_record *rec);
 int         is_in_shadow(t_scene *scene, t_hit_record *rec, t_light *light);
 void        render_scene(t_minirt *data);
-
+int         is_within_height(t_cylinder *cy, t_point3 p);
+t_vector    get_body_normal(t_cylinder *cy, t_point3 p);
+int         is_in_circle(t_point3 p, t_point3 cap_center, double radius);
+void        set_face_normal(t_hit_record *rec, t_ray ray, t_vector outward_normal);
 int         render(t_minirt *data);
 void        render_test_pattern(t_minirt *data);
 

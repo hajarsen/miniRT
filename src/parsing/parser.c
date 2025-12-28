@@ -1,5 +1,5 @@
 #include "parser.h"
-// parser.c
+
 char	*trim_line(char *line)
 {
 	char	*start;

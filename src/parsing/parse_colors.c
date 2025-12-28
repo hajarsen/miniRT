@@ -1,5 +1,5 @@
 #include "parser.h"
-// parse_2.c
+
 static bool	ft_parse_rgb(const char *str, double *value)
 {
 	*value = 0;

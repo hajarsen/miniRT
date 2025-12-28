@@ -1,5 +1,5 @@
 #include "parser.h"
-// parse_11.c
+
 void	init_scene(t_scene *scene)
 {
 	ft_bzero(scene, sizeof(t_scene));

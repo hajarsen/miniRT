@@ -1,5 +1,5 @@
 #include "parser.h"
-// parse_8.c
+
 int	parse_plane(t_scene *scene, char **tokens)
 {
 	t_plane	plane;

@@ -1,5 +1,4 @@
 #include "parser.h"
-// render.c 
 
 void	render_test_pattern(t_minirt *data)
 {
@@ -50,9 +49,7 @@ int	render(t_minirt *data)
 			data->scene->cylinder_count);
 		render_scene(data); 
 	}
-	
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
-	
 	mlx_string_put(data->mlx, data->win, 10, 20, 0xFFFFFF,
 		"miniRT - Ray Tracing - Press ESC to exit");
 	

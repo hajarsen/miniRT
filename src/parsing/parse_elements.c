@@ -1,5 +1,5 @@
 #include "parser.h"
-// parse_4.c
+
 int     parse_camera(t_scene *scene, char **tokens)
 {
         if (scene->has_camera)
