@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_utils3.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/28 18:40:45 by hsennane          #+#    #+#             */
+/*   Updated: 2025/12/28 18:40:46 by hsennane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 t_vector	vect_div(t_vector v, double t)
@@ -20,4 +32,14 @@ t_point3	ray_at(t_ray ray, double t)
 t_vector	vec_scale(t_vector v, double s)
 {
 	return (vect_scal(v, s));
+}
+
+bool	in_interval(double value, double min_val, double max_val)
+{
+	return (value >= min_val && value <= max_val);
+}
+
+bool	is_normalized(t_vector v)
+{
+	return (float_eq(vector_length(v), 1.0));
 }

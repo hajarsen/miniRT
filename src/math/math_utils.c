@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/28 18:40:02 by hsennane          #+#    #+#             */
+/*   Updated: 2025/12/28 18:40:14 by hsennane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 double	ft_min(double a, double b)
@@ -38,14 +50,6 @@ double	ft_power(double base, int exp)
 	return (result);
 }
 
-double	vector_length(t_vector v)
-{
-	double	vec_len;
-
-	vec_len = sqrt(ft_power(v.x, 2) + ft_power(v.y, 2) + ft_power(v.z, 2));
-	return (vec_len);
-}
-
 bool	float_eq(double a, double b)
 {
 	double	diff;
@@ -54,14 +58,4 @@ bool	float_eq(double a, double b)
 	diff = ft_abs(a - b);
 	max_abs = ft_max(ft_abs(a), ft_abs(b));
 	return (diff < EPSILON * max_abs);
-}
-
-bool	in_interval(double value, double min_val, double max_val)
-{
-	return (value >= min_val && value <= max_val);
-}
-
-bool	is_normalized(t_vector v)
-{
-	return (float_eq(vector_length(v), 1.0));
 }

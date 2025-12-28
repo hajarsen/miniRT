@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_utils1.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/28 18:40:21 by hsennane          #+#    #+#             */
+/*   Updated: 2025/12/28 18:40:23 by hsennane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 t_vector	create_vect(float x, float y, float z)
@@ -45,39 +57,5 @@ float	dot_product(t_vector v, t_vector w)
 	float	res;
 
 	res = v.x * w.x + v.y * w.y + v.z * w.z;
-	return (res);
-}
-
-t_vector	vect_invert(t_vector v)
-{
-	t_vector	res;
-
-	res.x = -v.x;
-	res.y = -v.y;
-	res.z = -v.z;
-	return (res);
-}
-
-t_vector	normalize(t_vector v)
-{
-	float		length;
-	t_vector	res;
-
-	length = vector_length(v);
-	if (length == 0)
-		return (v);
-	res.x = v.x / length;
-	res.y = v.y / length;
-	res.z = v.z / length;
-	return (res);
-}
-
-t_vector	vect_scal(t_vector v, float scal)
-{
-	t_vector	res;
-
-	res.x = v.x * scal;
-	res.y = v.y * scal;
-	res.z = v.z * scal;
 	return (res);
 }

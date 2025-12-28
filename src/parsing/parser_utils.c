@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/28 18:52:26 by hsennane          #+#    #+#             */
+/*   Updated: 2025/12/28 18:52:28 by hsennane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 void	init_scene(t_scene *scene)
@@ -8,12 +20,10 @@ void	init_scene(t_scene *scene)
 void	clean_scene(t_scene *scene)
 {
 	if (!scene)
-		return;
-	
+		return ;
 	free(scene->spheres);
 	free(scene->planes);
 	free(scene->cylinders);
-	
 	ft_bzero(scene, sizeof(t_scene));
 }
 
