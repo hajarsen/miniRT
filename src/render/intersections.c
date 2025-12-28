@@ -1,55 +1,6 @@
 #include "parser.h"
 // intersections.c
 
-// int	hit_sphere(t_sphere *sphere, t_ray ray, t_range range, t_hit_record *rec)
-// {
-// 	t_vector	oc;
-// 	double		radius;
-// 	double		a;
-// 	double		b;
-// 	double		c;
-// 	double		discriminant;
-// 	double		t1;
-// 	double		t2;
-// 	double		t_hit;
-// 	t_vector	outward_normal;
-
-// 	oc = vec_sub(ray.origin, sphere->center);
-// 	radius = sphere->diameter / 2.0;
-
-// 	a = vec_dot(ray.direction, ray.direction);
-// 	b = 2.0 * vec_dot(oc, ray.direction);
-// 	c = vec_dot(oc, oc) - radius * radius;
-// 	discriminant = b * b - 4 * a * c;
-
-// 	if (discriminant < 0)
-// 		return (0);
-
-// 	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
-// 	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-
-// 	t_hit = -1.0;
-// 	if (t1 > range.t_min && t1 < range.t_max)
-// 		t_hit = t1;
-// 	else if (t2 > range.t_min && t2 < range.t_max)
-// 		t_hit = t2;
-
-// 	if (t_hit == -1.0)
-// 		return (0);
-
-// 	rec->t = t_hit;
-// 	rec->p = ray_at(ray, rec->t);
-// 	outward_normal = vec_unit(vec_sub(rec->p, sphere->center));
-// 	rec->front_face = (vec_dot(ray.direction, outward_normal) < 0);
-
-// 	if (rec->front_face)
-// 		rec->normal = outward_normal;
-// 	else
-// 		rec->normal = vec_mult(outward_normal, -1);
-
-// 	rec->color = sphere->color;
-// 	return (1);
-// }
 // intersections.c - hit_sphere (just the normal calculation part)
 int hit_sphere(t_sphere *sphere, t_ray ray, t_range range, t_hit_record *rec)
 {
@@ -95,35 +46,6 @@ int hit_sphere(t_sphere *sphere, t_ray ray, t_range range, t_hit_record *rec)
 	return (1);
 }
 
-// int	hit_plane(t_plane *plane, t_ray ray, t_range range, t_hit_record *rec)
-// {
-// 	double	denom;
-// 	double	t;
-// 	t_vector	p0_minus_origin;
-
-// 	denom = vec_dot(ray.direction, plane->normal);
-// 	if (fabs(denom) < 1e-8)
-// 		return (0);
-
-// 	p0_minus_origin = vec_sub(plane->point, ray.origin);
-// 	t = vec_dot(p0_minus_origin, plane->normal) / denom;
-
-// 	if (t < range.t_min || t > range.t_max)
-// 		return (0);
-
-// 	rec->t = t;
-// 	rec->p = ray_at(ray, t);
-// 	rec->color = plane->color;
-// 	rec->front_face = (denom < 0);
-
-// 	if (rec->front_face)
-// 		rec->normal = plane->normal;
-// 	else
-// 		rec->normal = vec_mult(plane->normal, -1);
-
-// 	return (1);
-// }
-// intersections.c - hit_plane function
 // intersections.c - hit_plane function
 int	hit_plane(t_plane *plane, t_ray ray, t_range range, t_hit_record *rec)
 {
@@ -173,15 +95,7 @@ static int is_within_height(t_cylinder *cy, t_point3 p)
 	return (projection >= 0 && projection <= cy->height);
 }
 
-// static t_vector	get_body_normal(t_cylinder *cy, t_point3 p)
-// {
-// 	t_vector	cp;
-// 	t_vector	axis_component;
 
-// 	cp = vec_sub(p, cy->center);
-// 	axis_component = vec_mult(cy->axis, vec_dot(cp, cy->axis));
-// 	return (vec_unit(vec_sub(cp, axis_component)));
-// }
 // intersections.c - get_body_normal function
 static t_vector get_body_normal(t_cylinder *cy, t_point3 p)
 {
@@ -192,8 +106,6 @@ static t_vector get_body_normal(t_cylinder *cy, t_point3 p)
 	cp = vec_sub(p, cy->center);
 	axis_component = vec_mult(cy->axis, vec_dot(cp, cy->axis));
 	radial = vec_sub(cp, axis_component);
-
-	// CRITICAL: Normalize before returning
 	return (vec_unit(radial));
 }
 
@@ -274,7 +186,7 @@ static int is_in_circle(t_point3 p, t_point3 cap_center, double radius)
 }
 
 static int hit_cap(t_point3 cap_center, t_vector normal, double radius,
-				   t_ray ray, t_range range, t_hit_record *rec)
+				   t_ray ray, t_range range, t_hit_record *rec, t_color color)
 {
 	double denom;
 	double t;
@@ -303,7 +215,7 @@ static int hit_cap(t_point3 cap_center, t_vector normal, double radius,
 		rec->normal = normal;
 	else
 		rec->normal = vec_mult(normal, -1);
-
+	rec->color = color;
 	return (1);
 }
 
@@ -326,20 +238,18 @@ int hit_cylinder(t_cylinder *cy, t_ray ray, t_range range, t_hit_record *rec)
 	}
 
 	if (hit_cap(cy->center, vec_mult(cy->axis, -1), radius,
-				ray, (t_range){range.t_min, closest}, &temp))
+			ray, (t_range){range.t_min, closest}, &temp, cy->color))
 	{
 		*rec = temp;
-		rec->color = cy->color;
 		hit = 1;
 		closest = rec->t;
 	}
 
 	top_center = vec_add(cy->center, vec_mult(cy->axis, cy->height));
 	if (hit_cap(top_center, cy->axis, radius,
-				ray, (t_range){range.t_min, closest}, &temp))
+			ray, (t_range){range.t_min, closest}, &temp, cy->color))
 	{
 		*rec = temp;
-		rec->color = cy->color;
 		hit = 1;
 	}
 

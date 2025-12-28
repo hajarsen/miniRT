@@ -1,6 +1,5 @@
 #include "parser.h"
-
-#define EPSILON_SHADOW 0.0001
+//render_rt.c
 
 t_ray	get_ray(t_camera *cam, double u, double v)
 {
@@ -26,61 +25,41 @@ int	is_in_shadow(t_scene *scene, t_hit_record *rec, t_light *light)
 	light_dir = vec_sub(light->position, rec->p);
 	light_dist = vec_length(light_dir);
 	shadow_ray.direction = vec_unit(light_dir);
-	shadow_ray.origin = vec_add(rec->p, vec_mult(rec->normal, 0.01));// Increased from 0.001. Not the final value
-	if (hit_anything(scene, shadow_ray, (t_range){0.01, light_dist - 0.01}, &temp_rec))
+	shadow_ray.origin = vec_add(rec->p, vec_mult(rec->normal, EPSILON_SHADOW));// Increased from 0.001. Not the final value
+	if (hit_anything(scene, shadow_ray, (t_range){EPSILON_SHADOW, light_dist - EPSILON_SHADOW}, &temp_rec))
 		return (1);
 	return (0);
 }
 
-// t_color	calculate_color(t_minirt *data, t_hit_record *rec)
-// {
-// 	t_color		ambient;
-// 	t_color		diffuse;
-// 	t_color		final_color;
-// 	t_vector	light_dir;
-// 	double		diffuse_strength;
-
-// 	ambient.x = rec->color.x * data->scene->ambient.color.x * data->scene->ambient.ratio;
-// 	ambient.y = rec->color.y * data->scene->ambient.color.y * data->scene->ambient.ratio;
-// 	ambient.z = rec->color.z * data->scene->ambient.color.z * data->scene->ambient.ratio;
-// 	if (is_in_shadow(data->scene, rec, &data->scene->light))
-// 		return (ambient);
-// 	light_dir = vec_unit(vec_sub(data->scene->light.position, rec->p));
-// 	diffuse_strength *= data->scene->light.brightness;
-// 	diffuse.x = rec->color.x * data->scene->light.color.x * diffuse_strength;
-// 	diffuse.y = rec->color.y * data->scene->light.color.y * diffuse_strength;
-// 	diffuse.z = rec->color.z * data->scene->light.color.z * diffuse_strength;
-// 	final_color.x = ambient.x + diffuse.x;
-// 	final_color.y = ambient.y + diffuse.y;
-// 	final_color.z = ambient.z + diffuse.z;
-// 	return (final_color);
-// }
 t_color	calculate_color(t_minirt *data, t_hit_record *rec)
 {
 	t_color		ambient;
 	t_color		diffuse;
 	t_vector	light_dir;
 	double		diffuse_strength;
-
+	
+	// If colors are ALREADY normalized (0-1), use them directly
 	ambient = vec_mult(data->scene->ambient.color, data->scene->ambient.ratio);
 	ambient = (t_color){rec->color.x * ambient.x,
 					   rec->color.y * ambient.y,
 					   rec->color.z * ambient.z};
-
+	
 	if (is_in_shadow(data->scene, rec, &data->scene->light))
 		return ambient;
 	
-	light_dir = vec_unit(vec_sub(data->scene->light.position, rec->p));
+	// light_dir = vec_unit(vec_sub(data->scene->light.position, rec->p)); // Check later which one is correct
+	light_dir = vec_unit(vec_sub(rec->p, data->scene->light.position));
+	light_dir = vec_mult(light_dir, -1.0);
 	diffuse_strength = fmax(0.0, vec_dot(rec->normal, light_dir));
+	
 	diffuse = vec_mult((t_color){diffuse_strength, diffuse_strength,
 								diffuse_strength}, data->scene->light.brightness);
 	diffuse = (t_color){rec->color.x * diffuse.x,
 					   rec->color.y * diffuse.y,
 					   rec->color.z * diffuse.z};
-
+	
 	return vec_add(ambient, diffuse);
 }
-
 static int	color_to_int(t_color color)
 {
 	int	r;
@@ -123,7 +102,7 @@ void	render_scene(t_minirt *data)
 		x = 0;
 		while (x < data->img.width)
 		{
-			u = (double)x / (data->img.width - 1);
+			u = (double)(data->img.width - 1 - x) / (data->img.width - 1);
 			v = (double)(data->img.height - 1 - y) / (data->img.height - 1);
 			color = trace_pixel(data, u, v);
 			put_pixel(&data->img, x, y, color);

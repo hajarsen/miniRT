@@ -1,0 +1,18 @@
+# TEST 1: Alignment
+# Ambient light (soft white)
+A 0.2 255,255,255
+
+# Camera at origin, looking towards -Z (into screen)
+C 0,0,0  0,0,-1  90
+
+# Light slightly above and behind camera
+L 0,10,0 0.8 255,255,255
+
+# BLUE Sphere: CENTER (at 0,0,-10)
+sp 0,0,-10 4.0 0,0,255
+
+# RED Sphere: RIGHT (at 5,0,-10)
+sp 5,0,-10 2.0 255,0,0
+
+# GREEN Sphere: LEFT (at -5,0,-10)
+sp -5,0,-10 2.0 0,255,0

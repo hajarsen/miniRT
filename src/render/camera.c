@@ -30,15 +30,17 @@ static void	build_camera_basis(t_camera *cam, t_vector *u, t_vector *v, t_vector
 
 static void	calculate_pixel00_location(t_camera *cam, double focal_length)
 {
-	t_point3	viewport_center;
-	t_vector	half_h;
-	t_vector	half_v;
-
-	viewport_center = vec_add(cam->viewpoint,
-			vec_mult(cam->orientation, focal_length));
-	half_h = vect_div(cam->horizontal, 2.0);
-	half_v = vect_div(cam->vertical, 2.0);
-	cam->pixel00_loc = vec_sub(vec_sub(viewport_center, half_h), half_v);
+	t_point3	viewport_upper_left;
+	
+	viewport_upper_left = vec_add(cam->viewpoint, 
+		vec_mult(cam->orientation, focal_length));
+	viewport_upper_left = vec_sub(viewport_upper_left, 
+		vect_div(cam->horizontal, 2.0));
+	viewport_upper_left = vec_sub(viewport_upper_left, 
+		vect_div(cam->vertical, 2.0));
+	
+	cam->pixel00_loc = vec_add(viewport_upper_left,
+		vec_mult(vec_add(cam->pixel_delta_u, cam->pixel_delta_v), 0.5));
 }
 
 static void	set_camera_vectors(t_camera *cam, double vp_w, double vp_h)
@@ -61,5 +63,10 @@ void	setup_camera(t_camera *cam, int img_width, int img_height)
 	aspect_ratio = (double)img_width / (double)img_height;
 	viewport_dimensions(cam, aspect_ratio, &viewport_width, &viewport_height);
 	set_camera_vectors(cam, viewport_width, viewport_height);
+	
+	// (Might check later)
+	// cam->pixel_delta_u = vect_div(cam->horizontal, img_width);
+	// cam->pixel_delta_v = vect_div(cam->vertical, img_height);
+	
 	calculate_pixel00_location(cam, 1.0);
 }

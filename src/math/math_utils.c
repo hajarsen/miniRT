@@ -1,5 +1,5 @@
 #include "parser.h"
-
+// math1.c
 double ft_min(double a, double b)
 {
     if (a < b) 

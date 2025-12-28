@@ -1,5 +1,5 @@
 #include "parser.h"
-
+//window.c
 int	close_window(t_minirt *data)
 {
 	clean_scene(data->scene);

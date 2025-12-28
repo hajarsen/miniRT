@@ -1,5 +1,5 @@
 #include "parser.h"
-
+//minirt.c
 int	main(int argc, char **argv)
 {
 	t_scene		scene;

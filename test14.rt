@@ -1,0 +1,16 @@
+# TEST 4: Top-Down View (Drone Shot)
+A 0.1 255,255,255
+
+# Camera: High up (y=20), looking straight DOWN (vec 0,-1,0)
+C 0,20,0 0,-1,0 90
+
+# Light: Next to camera
+L 5,15,5 0.8 255,255,255
+
+# Floor (White)
+pl 0,0,0 0,1,0 200,200,200
+
+# Three Spheres on the floor
+sp 0,0,0    3.0 255,0,0   # Center Red
+sp 5,0,5    3.0 0,255,0   # Corner Green
+sp -5,0,5   3.0 0,0,255   # Corner Blue

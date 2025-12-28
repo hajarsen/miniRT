@@ -1,0 +1,19 @@
+# TEST 2: Cylinder Caps & Rotation
+A 0.1 255,255,255
+
+# Camera moved back and up slightly to look down
+C 0,5,10  0,-0.2,-1  70
+
+# Light to illuminate the tops of cylinders
+L 0,10,5 0.8 255,255,255
+
+# Floor Plane (Grey)
+pl 0,0,0 0,1,0 100,100,100
+
+# RED Cylinder: Vertical (Vector 0,1,0), Diameter 4, Height 6
+# Standing on left side
+cy -6,0,-10  0,1,0  4.0  6.0  255,0,0
+
+# GREEN Cylinder: Tilted (Vector 0.7, 0.7, 0), Diameter 4, Height 6
+# Floating on right side. You should see the flat top cap.
+cy 6,4,-10   0.7,0.7,0  4.0  6.0  0,255,0

@@ -1,0 +1,16 @@
+# TEST 3: Wall Shadows
+A 0.2 255,255,255
+
+# Camera looking straight ahead
+C 0,0,15 0,0,-1 70
+
+# Light is to the Right and Front (casting shadow to the Left and Back)
+L 10,5,20 0.8 255,255,255
+
+# The Blue Wall (Plane facing us, normal 0,0,1)
+# It is at Z = -5
+pl 0,0,-5 0,0,1 0,0,255
+
+# The Red Sphere (Between camera and wall)
+# It is at Z = 5.
+sp 0,0,5 4.0 255,0,0
