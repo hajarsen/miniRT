@@ -25,7 +25,7 @@ int	is_in_shadow(t_scene *scene, t_hit_record *rec, t_light *light)
 	light_dir = vec_sub(light->position, rec->p);
 	light_dist = vec_length(light_dir);
 	shadow_ray.direction = vec_unit(light_dir);
-	shadow_ray.origin = vec_add(rec->p, vec_mult(rec->normal, EPSILON_SHADOW));// Increased from 0.001. Not the final value
+	shadow_ray.origin = vec_add(rec->p, vec_mult(rec->normal, EPSILON_SHADOW));
 	if (hit_anything(scene, shadow_ray, (t_range){EPSILON_SHADOW, light_dist - EPSILON_SHADOW}, &temp_rec))
 		return (1);
 	return (0);

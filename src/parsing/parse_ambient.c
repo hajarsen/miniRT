@@ -1,5 +1,5 @@
 #include "parser.h"
-
+// parse_1.c
 int	parse_ambient(t_scene *scene, char **tokens)
 {
 	t_color	color;

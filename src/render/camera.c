@@ -50,7 +50,7 @@ static void	set_camera_vectors(t_camera *cam, double vp_w, double vp_h)
 	t_vector	w;
 
 	build_camera_basis(cam, &u, &v, &w);
-	cam->horizontal = vec_mult(u, vp_w);
+	cam->horizontal = vec_mult(u, -1 * vp_w);
 	cam->vertical = vec_mult(v, vp_h);
 }
 

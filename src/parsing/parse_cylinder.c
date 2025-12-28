@@ -1,5 +1,5 @@
 #include "parser.h"
-
+// parse_3.c
 int	parse_cylinder(t_scene *scene, char **tokens)
 {
 	t_cylinder	cylinder;

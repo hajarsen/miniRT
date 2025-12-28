@@ -1,0 +1,21 @@
+# Ambient: 20% white
+A 0.2 255,255,255
+
+# Camera: at (0,0,15) looking at (0,0,-1) -> Vector is already normalized
+C 0,0,15 0,0,-1 70
+
+# Light: Standard top-right light
+L 10,10,10 0.8 255,255,255
+
+# 1. Sphere at Center (0,0,0)
+sp 0,0,0 4.0 255,0,0
+
+# 2. Plane behind everything (z = -5) facing camera (0,0,1) -> Normalized
+pl 0,0,-5 0,0,1 128,128,128
+
+# 3. Translated Sphere (Moved to x=5)
+sp 5,0,0 4.0 0,0,255
+
+# 4. Rotated Cylinder (Left side)
+# Vector (1,0,0) is normalized. It rotates the cylinder to lay horizontal.
+cy -5,0,0 1,0,0 2.0 6.0 0,255,0

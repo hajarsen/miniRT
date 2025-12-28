@@ -219,6 +219,42 @@ static int hit_cap(t_point3 cap_center, t_vector normal, double radius,
 	return (1);
 }
 
+// int hit_cylinder(t_cylinder *cy, t_ray ray, t_range range, t_hit_record *rec)
+// {
+// 	t_hit_record temp;
+// 	int hit;
+// 	double closest;
+// 	t_point3 top_center;
+// 	double radius;
+
+// 	hit = 0;
+// 	closest = range.t_max;
+// 	radius = cy->diameter / 2.0;
+
+// 	if (hit_body(cy, ray, (t_range){range.t_min, closest}, rec))
+// 	{
+// 		hit = 1;
+// 		closest = rec->t;
+// 	}
+
+// 	if (hit_cap(cy->center, vec_mult(cy->axis, -1), radius,
+// 			ray, (t_range){range.t_min, closest}, &temp, cy->color))
+// 	{
+// 		*rec = temp;
+// 		hit = 1;
+// 		closest = rec->t;
+// 	}
+
+// 	top_center = vec_add(cy->center, vec_mult(cy->axis, cy->height));
+// 	if (hit_cap(top_center, cy->axis, radius,
+// 			ray, (t_range){range.t_min, closest}, &temp, cy->color))
+// 	{
+// 		*rec = temp;
+// 		hit = 1;
+// 	}
+
+// 	return (hit);
+// }
 int hit_cylinder(t_cylinder *cy, t_ray ray, t_range range, t_hit_record *rec)
 {
 	t_hit_record temp;
@@ -255,7 +291,6 @@ int hit_cylinder(t_cylinder *cy, t_ray ray, t_range range, t_hit_record *rec)
 
 	return (hit);
 }
-
 int hit_anything(t_scene *scene, t_ray ray, t_range range, t_hit_record *rec)
 {
 	t_hit_record temp_rec;

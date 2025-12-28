@@ -1,5 +1,5 @@
 #include "parser.h"
-
+// parse_6.c
 const char *parse_integer_part(const char *str, double *result)
 {
     while (isdigit(*str))

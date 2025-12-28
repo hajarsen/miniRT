@@ -1,5 +1,5 @@
 #include "parser.h"
-
+// parse_4.c
 int     parse_camera(t_scene *scene, char **tokens)
 {
         if (scene->has_camera)
@@ -12,8 +12,8 @@ int     parse_camera(t_scene *scene, char **tokens)
 
         if (!parse_vector(&scene->camera.orientation, tokens[2], -1.0, 1.0))
                 return (parse_error("Camera: invalid orientation"));
-        if (!is_normalized(scene->camera.orientation))
-                return (parse_error("Camera orientation must be normalized"));
+        // if (!is_normalized(scene->camera.orientation))
+        //         return (parse_error("Camera orientation must be normalized"));
 
         if (!parse_float(&scene->camera.fov, tokens[3]))
                 return (parse_error("Camera: invalid FOV"));
