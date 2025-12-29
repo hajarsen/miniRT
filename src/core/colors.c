@@ -34,7 +34,7 @@ t_color	calculate_color(t_minirt *data, t_hit_record *rec)
 	return (vec_add(ambient, diffuse));
 }
 
-static int	color_to_int(t_color color)
+int	color_to_int(t_color color)
 {
 	int	r;
 	int	g;
