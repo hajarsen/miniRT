@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   intersections_manager.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrhilane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:11:49 by hrhilane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:12:19 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:49 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 static void	check_obj(int *hit, t_hit_record *rec, t_range *rng,
 	t_hit_record tmp)

@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:40:53 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 18:40:54 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:44:00 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 t_vector	normalize(t_vector v)
 {

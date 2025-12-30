@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrhilane <hrhilane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:13:59 by hrhilane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:14:21 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:39 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 static void	viewport_dimensions(t_camera *cam, double aspect_ratio,
 		double *vp_width, double *vp_height)

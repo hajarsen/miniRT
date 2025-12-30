@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:52:26 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 18:52:28 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:27 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 void	init_scene(t_scene *scene)
 {

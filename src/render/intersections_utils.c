@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   intersections_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrhilane <hrhilane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:12:39 by hrhilane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:13:02 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:59 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 void	set_face_normal(t_hit_record *rec, t_ray ray, t_vector outward_normal)
 {

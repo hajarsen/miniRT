@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:40:02 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 18:40:14 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:43:42 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 double	ft_min(double a, double b)
 {

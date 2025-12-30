@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef MINIRT_H
+# define MINIRT_H
 
 #include <unistd.h>
 #include <stdlib.h>

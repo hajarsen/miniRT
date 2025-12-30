@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:16:15 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:22:51 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:43:22 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 static int	parse_and_init(t_scene *scene, t_minirt *minirt, char *filename)
 {

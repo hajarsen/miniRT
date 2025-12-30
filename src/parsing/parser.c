@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:52:01 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 20:04:48 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:33 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 char	*trim_line(char *line)
 {

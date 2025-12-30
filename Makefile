@@ -11,7 +11,6 @@ SRC = src/core/minirt.c \
       src/parsing/parser.c \
       src/parsing/parser_utils.c \
       src/parsing/parse_elements.c \
-      src/parsing/parse_error.c \
       src/parsing/parse_float.c \
       src/parsing/parse_vector.c \
       src/parsing/parse_colors.c \
@@ -26,7 +25,8 @@ SRC = src/core/minirt.c \
       src/render/intersections_manager.c \
       src/render/intersections_simple.c \
       src/render/intersections_utils.c \
-      src/utils/array.c
+      src/utils/array.c \
+      src/utils/error.c
 
 GNL_SRC = lib/get_next_line/get_next_line.c \
           lib/get_next_line/get_next_line_utils.c

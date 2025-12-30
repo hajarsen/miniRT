@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:40:30 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 18:40:33 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:43:53 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 t_vector	reflect_vect(t_vector v, t_vector n)
 {

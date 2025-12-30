@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   intersections_simple.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrhilane <hrhilane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:13:19 by hrhilane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:13:39 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:54 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 int	hit_sphere(t_sphere *sp, t_ray ray, t_range range, t_hit_record *rec)
 {

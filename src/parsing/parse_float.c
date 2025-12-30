@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:51:06 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 18:51:09 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:11 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 const char	*parse_integer_part(const char *str, double *result)
 {

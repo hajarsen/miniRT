@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:51:38 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 18:51:41 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:23 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 bool	parse_vector(t_vector *vec, char *str, double min_val, double max_val)
 {

@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 20:10:21 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 02:50:58 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:43:27 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 static int	trace_pixel(t_minirt *data, double u, double v)
 {

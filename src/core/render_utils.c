@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:16:35 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:16:38 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:43:31 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 t_ray	get_ray(t_camera *cam, double u, double v)
 {

@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:51:16 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 18:51:19 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:42:17 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 int	parse_cylinder(t_scene *scene, char **tokens)
 {

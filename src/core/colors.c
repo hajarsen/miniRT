@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 20:21:51 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 20:22:00 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:43:17 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 t_color	calculate_color(t_minirt *data, t_hit_record *rec)
 {

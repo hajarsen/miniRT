@@ -6,11 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:43:49 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 18:54:34 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 03:41:52 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minirt.h"
 
 static bool	ft_parse_rgb(const char *str, double *value)
 {
