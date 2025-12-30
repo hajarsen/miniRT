@@ -229,8 +229,6 @@ int         is_within_height(t_cylinder *cy, t_point3 p);
 t_vector    get_body_normal(t_cylinder *cy, t_point3 p);
 int         is_in_circle(t_point3 p, t_point3 cap_center, double radius);
 void        set_face_normal(t_hit_record *rec, t_ray ray, t_vector outward_normal);
-int         render(t_minirt *data);
-void        render_test_pattern(t_minirt *data);
 int	color_to_int(t_color color);
 
 int         init_window(t_minirt *data);

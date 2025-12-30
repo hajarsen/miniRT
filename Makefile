@@ -4,6 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -I./includes -I./lib/libft -I./lib/get_next_line 
 LDFLAGS = -lm -lmlx -lXext -lX11
 
 SRC = src/core/minirt.c \
+      src/core/colors.c \
       src/core/render_rt.c \
       src/core/render_utils.c \
       src/core/window.c \
@@ -20,7 +21,6 @@ SRC = src/core/minirt.c \
       src/math/math_utils2.c \
       src/math/math_utils3.c \
       src/math/math_utils4.c \
-      src/render/render.c \
       src/render/camera.c \
       src/render/intersections_cylinder.c \
       src/render/intersections_manager.c \

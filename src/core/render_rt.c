@@ -6,23 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 20:10:21 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/28 20:21:00 by hsennane         ###   ########.fr       */
+/*   Updated: 2025/12/30 02:50:58 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-static int	color_to_int(t_color color)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = (int)(255.999 * fmin(1.0, color.x));
-	g = (int)(255.999 * fmin(1.0, color.y));
-	b = (int)(255.999 * fmin(1.0, color.z));
-	return (r << 16 | g << 8 | b);
-}
 
 static int	trace_pixel(t_minirt *data, double u, double v)
 {

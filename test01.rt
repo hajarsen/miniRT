@@ -1,0 +1,30 @@
+# ============ miniRT Scene File ============
+# Format: .rt - Ray Tracing Scene Description
+
+# AMBIENT LIGHT (obligatoire)
+# A  ratio  R,G,B (0-255)
+A   0.25     255,255,255
+
+# CAMERA (obligatoire)
+# C  x,y,z  orientation_x,orientation_y,orientation_z  FOV(0-180)
+C   0,2,-10  0,-0.2,0.98   70
+
+# LIGHT (obligatoire)
+# L  x,y,z  brightness(0.0-1.0)  R,G,B
+L   -5,5,-5   0.8   255,255,255
+
+# ============ OBJECTS ============
+
+# SPHERE: sp  center  diameter  color
+# sp   0,0,3     1.0     255,0,0       # Sphère rouge au centre
+sp   4,0,0     1.5     100,100,255       # Sphère verte à droite
+sp   -4,0,0    1.5     255,100,100       # Sphère bleue à gauche
+
+# PLANE: pl  point  normal  color
+# pl   0,-2,0    0,1,0    150,150,150  # Plan gris (sol)
+# pl   0,10,0    0,-1,0   200,200,255  # Plan bleu clair (ciel)
+pl   0,-2,0   0,1,0    60,60,60  # Plan rose (mur gauche)
+
+# CYLINDER: cy  center  axis  diameter  height  color
+cy   0,0,0     1,0,0    2.0     8.0     255,150,0    # Cylindre jaune vertical
+# cy   -3,-1,5   1,0,0    0.8     2.0     255,0,255    # Cylindre magenta horizontal
