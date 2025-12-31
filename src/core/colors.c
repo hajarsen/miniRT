@@ -57,7 +57,7 @@ static	t_color	get_checkerboard(t_hit_record *rec)
 	double	size;
 	int		checker;
 
-	size = 5.0;
+	size = 3.0;
 	checker = (int)(floor(rec->p.x / size + EPSILON)
 			+ floor(rec->p.y / size + EPSILON)
 			+ floor(rec->p.z / size + EPSILON));

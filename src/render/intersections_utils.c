@@ -28,7 +28,7 @@ int	is_within_height(t_cylinder *cy, t_point3 p)
 
 	cp = vec_sub(p, cy->center);
 	projection = vec_dot(cp, cy->axis);
-	return (projection >= 0 && projection <= cy->height);
+	return (projection >= -cy->height * 0.5 && projection <= cy->height * 0.5);
 }
 
 t_vector	get_body_normal(t_cylinder *cy, t_point3 p)

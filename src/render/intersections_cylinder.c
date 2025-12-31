@@ -45,16 +45,18 @@ static int	hit_bottom_cap(t_cylinder *cy, t_ray ray,
 {
 	double		t;
 	t_point3	p;
+	t_point3	bottom;
 	double		denom;
 
 	denom = vec_dot(ray.direction, cy->axis);
 	if (fabs(denom) < 1e-8)
 		return (0);
-	t = vec_dot(vec_sub(cy->center, ray.origin), cy->axis) / denom;
+	bottom = vec_sub(cy->center, vec_mult(cy->axis, cy->height * 0.5));
+	t = vec_dot(vec_sub(bottom, ray.origin), cy->axis) / denom;
 	if (t <= range.t_min || t >= range.t_max)
 		return (0);
 	p = ray_at(ray, t);
-	if (!is_in_circle(p, cy->center, cy->diameter * 0.5))
+	if (!is_in_circle(p, bottom, cy->diameter * 0.5))
 		return (0);
 	rec->t = t;
 	rec->p = p;
@@ -72,10 +74,10 @@ static int	hit_top_cap(t_cylinder *cy, t_ray ray,
 	t_point3	top;
 	double		denom;
 
-	top = vec_add(cy->center, vec_mult(cy->axis, cy->height));
 	denom = vec_dot(ray.direction, cy->axis);
 	if (fabs(denom) < 1e-8)
 		return (0);
+	top = vec_add(cy->center, vec_mult(cy->axis, cy->height * 0.5));
 	t = vec_dot(vec_sub(top, ray.origin), cy->axis) / denom;
 	if (t <= range.t_min || t >= range.t_max)
 		return (0);

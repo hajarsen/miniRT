@@ -42,7 +42,7 @@ void	render_scene(t_minirt *data)
 		x = 0;
 		while (x < data->img.width)
 		{
-			u = (double)(data->img.width - 1 - x) / (data->img.width - 1);
+			u = (double)x / (data->img.width - 1);
 			v = (double)(data->img.height - 1 - y) / (data->img.height - 1);
 			color = trace_pixel(data, u, v);
 			put_pixel(&data->img, x, y, color);
