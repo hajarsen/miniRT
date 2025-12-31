@@ -22,6 +22,7 @@
 #define WIDTH 1200
 #define HEIGHT 1000
 #define EPSILON_SHADOW 0.0001
+#define KEY_C 99
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
@@ -50,6 +51,7 @@ typedef struct s_hit_record
     double      t;
     t_color     color;
     int         front_face;
+    int         is_checker;
 } t_hit_record;
 
 typedef struct s_range
@@ -149,6 +151,7 @@ typedef struct s_minirt
     void    *win;
     t_img   img;
     t_scene *scene;
+    int     checkers_on;
 } t_minirt;
 
 
@@ -229,7 +232,9 @@ int         is_within_height(t_cylinder *cy, t_point3 p);
 t_vector    get_body_normal(t_cylinder *cy, t_point3 p);
 int         is_in_circle(t_point3 p, t_point3 cap_center, double radius);
 void        set_face_normal(t_hit_record *rec, t_ray ray, t_vector outward_normal);
-int	color_to_int(t_color color);
+int         color_to_int(t_color color);
+int	        solve_cy(t_vector oc, t_ray ray, t_cylinder *cy, double *t);
+
 
 int         init_window(t_minirt *data);
 int         close_window(t_minirt *data);

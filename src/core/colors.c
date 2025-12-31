@@ -12,36 +12,78 @@
 
 #include "minirt.h"
 
-t_color	calculate_color(t_minirt *data, t_hit_record *rec)
+static t_color	get_ambient(t_scene *s, t_hit_record *rec)
 {
-	t_color		ambient;
-	t_color		diffuse;
-	t_vector	light_dir;
-	double		diffuse_strength;
+	t_color	a;
 
-	ambient = vec_mult(data->scene->ambient.color, data->scene->ambient.ratio);
-	ambient = (t_color){rec->color.x * ambient.x, rec->color.y * ambient.y,
-		rec->color.z * ambient.z};
-	if (is_in_shadow(data->scene, rec, &data->scene->light))
-		return (ambient);
-	light_dir = vec_unit(vec_sub(rec->p, data->scene->light.position));
-	light_dir = vec_mult(light_dir, -1.0);
-	diffuse_strength = fmax(0.0, vec_dot(rec->normal, light_dir));
-	diffuse = vec_mult((t_color){diffuse_strength, diffuse_strength,
-			diffuse_strength}, data->scene->light.brightness);
-	diffuse = (t_color){rec->color.x * diffuse.x, rec->color.y * diffuse.y,
-		rec->color.z * diffuse.z};
-	return (vec_add(ambient, diffuse));
+	a = vec_mult(s->ambient.color, s->ambient.ratio);
+	return ((t_color){
+		a.x * rec->color.x,
+		a.y * rec->color.y,
+		a.z * rec->color.z
+	});
 }
 
-int	color_to_int(t_color color)
+static t_color	get_diffuse(t_scene *s, t_hit_record *rec,
+		t_vector light_dir)
 {
-	int	r;
-	int	g;
-	int	b;
+	double	diff;
+	t_color	d;
 
-	r = (int)(255.999 * fmin(1.0, color.x));
-	g = (int)(255.999 * fmin(1.0, color.y));
-	b = (int)(255.999 * fmin(1.0, color.z));
-	return (r << 16 | g << 8 | b);
+	diff = fmax(vec_dot(rec->normal, light_dir), 0.0);
+	d = vec_mult(s->light.color, diff * s->light.brightness);
+	return ((t_color){
+		d.x * rec->color.x,
+		d.y * rec->color.y,
+		d.z * rec->color.z
+	});
+}
+
+static t_color	get_specular(t_scene *s, t_hit_record *rec,
+		t_vector light_dir)
+{
+	t_vector	view_dir;
+	t_vector	reflect_dir;
+	double		spec;
+
+	view_dir = vec_unit(vec_sub(s->camera.viewpoint, rec->p));
+	reflect_dir = reflect_vect(vec_mult(light_dir, -1), rec->normal);
+	spec = pow(fmax(vec_dot(view_dir, reflect_dir), 0.0), 64.0);
+	return (vec_mult(s->light.color, spec * 0.5 * s->light.brightness));
+}
+
+static	t_color	get_checkerboard(t_hit_record *rec)
+{
+	double	size;
+	int		checker;
+
+	size = 5.0;
+	checker = (int)(floor(rec->p.x / size + EPSILON)
+			+ floor(rec->p.y / size + EPSILON)
+			+ floor(rec->p.z / size + EPSILON));
+	if (checker % 2 != 0)
+		return ((t_color){0, 0, 0});
+	return (rec->color);
+}
+
+t_color	calculate_color(t_minirt *data, t_hit_record *rec)
+{
+	t_scene		*s;
+	t_vector	light_dir;
+	t_color		result;
+
+	s = data->scene;
+	if (rec->is_checker && data->checkers_on)
+		rec->color = get_checkerboard(rec);
+	result = get_ambient(s, rec);
+	if (is_in_shadow(s, rec, &s->light))
+		return (result);
+	light_dir = vec_unit(vec_sub(s->light.position, rec->p));
+	result = vec_add(result, get_diffuse(s, rec, light_dir));
+	result = vec_add(result, get_specular(s, rec, light_dir));
+	return ((t_color){
+		fmin(1.0, result.x),
+		fmin(1.0, result.y),
+		fmin(1.0, result.z)
+	});
 }

@@ -12,27 +12,6 @@
 
 #include "minirt.h"
 
-static int	solve_cy(t_vector oc, t_ray ray, t_cylinder *cy, double *t)
-{
-	t_vector	d_perp;
-	t_vector	oc_perp;
-	t_eq		eq;
-
-	d_perp = vec_sub(ray.direction, vec_mult(cy->axis, vec_dot(ray.direction,
-					cy->axis)));
-	oc_perp = vec_sub(oc, vec_mult(cy->axis, vec_dot(oc, cy->axis)));
-	eq.a = vec_dot(d_perp, d_perp);
-	eq.b = 2.0 * vec_dot(oc_perp, d_perp);
-	eq.c = vec_dot(oc_perp, oc_perp) - pow(cy->diameter / 2.0, 2);
-	eq.discriminant = eq.b * eq.b - 4 * eq.a * eq.c;
-	if (eq.discriminant < 0)
-		return (0);
-	eq.sqrtd = sqrt(eq.discriminant);
-	t[0] = (-eq.b - eq.sqrtd) / (2.0 * eq.a);
-	t[1] = (-eq.b + eq.sqrtd) / (2.0 * eq.a);
-	return (1);
-}
-
 static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 		t_hit_record *rec)
 {
@@ -52,6 +31,7 @@ static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 		if (is_within_height(cy, p))
 		{
 			rec->p = p;
+			rec->is_checker = 0;
 			set_face_normal(rec, ray, get_body_normal(cy, p));
 			rec->color = cy->color;
 			return (1);
@@ -60,55 +40,73 @@ static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 	return (0);
 }
 
-static int	check_cap_hit(t_point3 center, t_vector norm, t_cylinder *cy,
-		t_hit_record *rec)
+static int	hit_bottom_cap(t_cylinder *cy, t_ray ray,
+		t_range range, t_hit_record *rec)
 {
-	double		denom;
 	double		t;
-	t_vector	p0;
 	t_point3	p;
+	double		denom;
 
-	denom = vec_dot(rec->normal, norm);
+	denom = vec_dot(ray.direction, cy->axis);
 	if (fabs(denom) < 1e-8)
 		return (0);
-	p0 = vec_sub(center, rec->p);
-	t = vec_dot(p0, norm) / denom;
-	if (t < rec->t || t > rec->color.x)
+	t = vec_dot(vec_sub(cy->center, ray.origin), cy->axis) / denom;
+	if (t <= range.t_min || t >= range.t_max)
 		return (0);
-	p = ray_at((t_ray){rec->p, rec->normal}, t);
-	if (!is_in_circle(p, center, cy->diameter / 2.0))
+	p = ray_at(ray, t);
+	if (!is_in_circle(p, cy->center, cy->diameter * 0.5))
 		return (0);
 	rec->t = t;
-	set_face_normal(rec, (t_ray){rec->p, rec->normal}, norm);
+	rec->p = p;
+	rec->color = cy->color;
+	rec->is_checker = 0;
+	set_face_normal(rec, ray, vec_mult(cy->axis, -1));
 	return (1);
 }
 
-static int	hit_caps(t_cylinder *cy, t_ray ray, t_range range,
-		t_hit_record *rec)
+static int	hit_top_cap(t_cylinder *cy, t_ray ray,
+		t_range range, t_hit_record *rec)
 {
-	t_hit_record	ctx;
+	double		t;
+	t_point3	p;
+	t_point3	top;
+	double		denom;
+
+	top = vec_add(cy->center, vec_mult(cy->axis, cy->height));
+	denom = vec_dot(ray.direction, cy->axis);
+	if (fabs(denom) < 1e-8)
+		return (0);
+	t = vec_dot(vec_sub(top, ray.origin), cy->axis) / denom;
+	if (t <= range.t_min || t >= range.t_max)
+		return (0);
+	p = ray_at(ray, t);
+	if (!is_in_circle(p, top, cy->diameter * 0.5))
+		return (0);
+	rec->t = t;
+	rec->p = p;
+	rec->color = cy->color;
+	rec->is_checker = 0;
+	set_face_normal(rec, ray, cy->axis);
+	return (1);
+}
+
+static int	hit_caps(t_cylinder *cy, t_ray ray,
+		t_range range, t_hit_record *rec)
+{
+	t_hit_record	tmp;
 	int				hit;
 
 	hit = 0;
-	ctx.p = ray.origin;
-	ctx.normal = ray.direction;
-	ctx.t = range.t_min;
-	ctx.color.x = range.t_max;
-	if (check_cap_hit(cy->center, vec_mult(cy->axis, -1), cy, &ctx))
+	if (hit_bottom_cap(cy, ray, range, &tmp))
 	{
+		*rec = tmp;
+		range.t_max = tmp.t;
 		hit = 1;
-		*rec = ctx;
-		rec->p = ray_at(ray, rec->t);
-		rec->color = cy->color;
-		ctx.color.x = rec->t;
 	}
-	if (check_cap_hit(vec_add(cy->center, vec_mult(cy->axis, cy->height)),
-			cy->axis, cy, &ctx))
+	if (hit_top_cap(cy, ray, range, &tmp))
 	{
+		*rec = tmp;
 		hit = 1;
-		*rec = ctx;
-		rec->p = ray_at(ray, rec->t);
-		rec->color = cy->color;
 	}
 	return (hit);
 }

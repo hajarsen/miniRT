@@ -52,3 +52,24 @@ int	is_in_circle(t_point3 p, t_point3 cap_center, double radius)
 	dist_sq = vec_dot(to_p, to_p);
 	return (dist_sq <= radius * radius);
 }
+
+int	solve_cy(t_vector oc, t_ray ray, t_cylinder *cy, double *t)
+{
+	t_vector	d_perp;
+	t_vector	oc_perp;
+	t_eq		eq;
+
+	d_perp = vec_sub(ray.direction, vec_mult(cy->axis, vec_dot(ray.direction,
+					cy->axis)));
+	oc_perp = vec_sub(oc, vec_mult(cy->axis, vec_dot(oc, cy->axis)));
+	eq.a = vec_dot(d_perp, d_perp);
+	eq.b = 2.0 * vec_dot(oc_perp, d_perp);
+	eq.c = vec_dot(oc_perp, oc_perp) - pow(cy->diameter / 2.0, 2);
+	eq.discriminant = eq.b * eq.b - 4 * eq.a * eq.c;
+	if (eq.discriminant < 0)
+		return (0);
+	eq.sqrtd = sqrt(eq.discriminant);
+	t[0] = (-eq.b - eq.sqrtd) / (2.0 * eq.a);
+	t[1] = (-eq.b + eq.sqrtd) / (2.0 * eq.a);
+	return (1);
+}

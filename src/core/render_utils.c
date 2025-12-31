@@ -31,14 +31,28 @@ int	is_in_shadow(t_scene *scene, t_hit_record *rec, t_light *light)
 	t_ray			shadow_ray;
 	t_vector		light_dir;
 	double			light_dist;
-	t_hit_record	temp_rec;
+	t_hit_record	tmp;
 
 	light_dir = vec_sub(light->position, rec->p);
 	light_dist = vec_length(light_dir);
-	shadow_ray.direction = vec_unit(light_dir);
-	shadow_ray.origin = vec_add(rec->p, vec_mult(rec->normal, EPSILON_SHADOW));
-	if (hit_anything(scene, shadow_ray, (t_range){EPSILON_SHADOW, light_dist
-			- EPSILON_SHADOW}, &temp_rec))
+	light_dir = vec_unit(light_dir);
+	shadow_ray.origin = vec_add(rec->p,
+			vec_mult(rec->normal, EPSILON_SHADOW));
+	shadow_ray.direction = light_dir;
+	if (hit_anything(scene, shadow_ray,
+			(t_range){EPSILON_SHADOW, light_dist - EPSILON_SHADOW}, &tmp))
 		return (1);
 	return (0);
+}
+
+int	color_to_int(t_color color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (int)(255.999 * fmin(1.0, color.x));
+	g = (int)(255.999 * fmin(1.0, color.y));
+	b = (int)(255.999 * fmin(1.0, color.z));
+	return (r << 16 | g << 8 | b);
 }

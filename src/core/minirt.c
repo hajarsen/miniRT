@@ -18,6 +18,7 @@ static int	parse_and_init(t_scene *scene, t_minirt *minirt, char *filename)
 		return (0);
 	ft_bzero(minirt, sizeof(t_minirt));
 	minirt->scene = scene;
+	minirt->checkers_on = 0;
 	if (!init_window(minirt))
 	{
 		clean_scene(scene);
@@ -46,7 +47,7 @@ static void	setup_display(t_minirt *minirt)
 	mlx_put_image_to_window(minirt->mlx, minirt->win,
 		minirt->img.img, 0, 0);
 	mlx_string_put(minirt->mlx, minirt->win, 10, 20,
-		0xFFFFFF, "miniRT - Ray Tracing - Press ESC to exit");
+		0xFFFFFF, "miniRT: Press ESC to exit | Press 'C' for Checkers");
 	mlx_string_put(minirt->mlx, minirt->win, 10, 40,
 		0xFFFFFF, "Use .rt files with A, C, L, sp, pl, cy");
 }

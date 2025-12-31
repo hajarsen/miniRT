@@ -42,6 +42,12 @@ int	key_hook(int keycode, t_minirt *data)
 {
 	if (keycode == XK_Escape || keycode == 65307)
 		return (close_window(data));
+	if (keycode == KEY_C)
+	{
+		data->checkers_on = !data->checkers_on;
+		render_scene(data);
+		mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	}
 	return (0);
 }
 
