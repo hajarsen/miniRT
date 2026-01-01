@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 20:10:40 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/01 14:09:13 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/01 15:48:52 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,3 @@ int	init_window(t_minirt *data)
 	return (1);
 }
 
-int	rgb_into_int(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
-}
