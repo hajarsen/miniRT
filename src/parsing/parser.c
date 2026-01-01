@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:52:01 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/01 14:02:38 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/01 14:11:01 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ char	*trim_line(char *line)
 	if (!line)
 		return (NULL);
 	len = ft_strlen(line);
-	if(len > 0 && line[len - 1] == '\n')
+	if (len > 0 && line[len - 1] == '\n')
 		line[len - 1] = '\0';
-	if(len == 0)
+	if (len == 0)
 		return (line);
 	start = line;
 	while (*start && (*start == ' ' || *start == '\t'))
 		start++;
-	if(start[0] == '\0')
+	if (start[0] == '\0')
 	{
 		line[0] = '\0';
 		return (line);
