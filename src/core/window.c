@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 20:10:40 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:43:36 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/01 13:56:23 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,12 @@ int	init_window(t_minirt *data)
 		return (parse_error("MiniLibX initialization failed"), 0);
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "miniRT");
 	if (!data->win)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
 		return (parse_error("Window creation failed"), 0);
-	data->img.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	}
+		data->img.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->img.img)
 		return (parse_error("Image creation failed"), 0);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel,

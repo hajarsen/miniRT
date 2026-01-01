@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:40:45 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:43:56 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/01 13:57:04 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,8 @@ bool	in_interval(double value, double min_val, double max_val)
 
 bool	is_normalized(t_vector v)
 {
-	return (float_eq(vector_length(v), 1.0));
+	double	len;
+
+	len = vector_length(v);
+	return (fabs(len - 1.0) < 1e-4);
 }

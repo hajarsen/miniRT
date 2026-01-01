@@ -6,13 +6,13 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:51:06 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:42:11 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/01 13:58:54 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-const char	*parse_integer_part(const char *str, double *result)
+static const char	*parse_integer_part(const char *str, double *result)
 {
 	while (isdigit(*str))
 	{
@@ -25,7 +25,7 @@ const char	*parse_integer_part(const char *str, double *result)
 	return (str);
 }
 
-const char	*parse_fractional_part(const char *str, double *result)
+static const char	*parse_fractional_part(const char *str, double *result)
 {
 	double	divisor;
 

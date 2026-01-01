@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:40:53 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:44:00 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/01 13:58:22 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ double	vector_length(t_vector v)
 {
 	double	vec_len;
 
-	vec_len = sqrt(ft_power(v.x, 2) + ft_power(v.y, 2) + ft_power(v.z, 2));
+	vec_len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	return (vec_len);
 }
 
@@ -51,5 +51,5 @@ float	distance(t_vector v, t_vector w)
 	res.x = w.x - v.x;
 	res.y = w.y - v.y;
 	res.z = w.z - v.z;
-	return (sqrt(ft_power(res.x, 2) + ft_power(res.y, 2) + ft_power(res.z, 2)));
+	return (sqrt(res.x * res.x + res.y * res.y + res.z * res.z));
 }

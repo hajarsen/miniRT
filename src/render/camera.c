@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:13:59 by hrhilane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:42:39 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/01 14:04:09 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	setup_camera(t_camera *cam, int img_width, int img_height)
 	aspect_ratio = (double)img_width / (double)img_height;
 	viewport_dimensions(cam, aspect_ratio, &viewport_width, &viewport_height);
 	set_camera_vectors(cam, viewport_width, viewport_height);
-	cam->pixel_delta_u = vect_div(cam->horizontal, img_width);
-	cam->pixel_delta_v = vect_div(cam->vertical, img_height);
+	cam->pixel_delta_u = vect_div(cam->horizontal, (double)img_width);
+	cam->pixel_delta_v = vect_div(cam->vertical, (double)img_height);
 	calculate_pixel00_location(cam, 1.0);
 }
