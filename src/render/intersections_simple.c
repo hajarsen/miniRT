@@ -36,7 +36,7 @@ int	hit_sphere(t_sphere *sp, t_ray ray, t_range range, t_hit_record *rec)
 	set_face_normal(rec, ray, vect_div(vec_sub(rec->p, sp->center),
 			sp->diameter * 0.5));
 	rec->color = sp->color;
-	rec->is_checker = 0;
+	rec->obj_type = OBJ_SPHERE;
 	return (1);
 }
 
@@ -54,7 +54,7 @@ int	hit_plane(t_plane *plane, t_ray ray, t_range range, t_hit_record *rec)
 		return (0);
 	rec->p = ray_at(ray, rec->t);
 	rec->color = plane->color;
-	rec->is_checker = 1;
-	set_face_normal(rec, ray, plane->normal);
+	rec->obj_type = OBJ_PLANE;
+	set_face_normal(rec, ray, vec_unit(plane->normal));
 	return (1);
 }

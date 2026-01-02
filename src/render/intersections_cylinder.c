@@ -16,28 +16,27 @@ static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 		t_hit_record *rec)
 {
 	double		t[2];
-	int			i;
 	t_point3	p;
 
 	if (!solve_cy(vec_sub(ray.origin, cy->center), ray, cy, t))
 		return (0);
-	i = 0;
-	while (i < 2)
+	if ((t[0] > range.t_min && t[0] < range.t_max) || (t[1] > range.t_min
+			&& t[1] < range.t_max))
 	{
-		if (t[i] > range.t_min && t[i] < range.t_max)
+		if (t[0] > range.t_min && t[0] < range.t_max)
+			rec->t = t[0];
+		else
+			rec->t = t[1];
+		p = ray_at(ray, rec->t);
+		if (is_within_height(cy, p))
 		{
-			p = ray_at(ray, t[i]);
-			if (is_within_height(cy, p))
-			{
-				rec->t = t[i];
-				rec->p = p;
-				set_face_normal(rec, ray, get_body_normal(cy, p));
-				rec->color = cy->color;
-				rec->is_checker = 0;
-				return (1);
-			}
+			rec->p = p;
+			set_face_normal(rec, ray, get_body_normal(cy, p));
+			rec->color = cy->color;
+			rec->obj_type = OBJ_CYLINDER;
+			get_cylinder_uv(rec, cy);
+			return (1);
 		}
-		i++;
 	}
 	return (0);
 }
@@ -63,7 +62,6 @@ static int	hit_bottom_cap(t_cylinder *cy, t_ray ray, t_range range,
 	rec->t = t;
 	rec->p = p;
 	rec->color = cy->color;
-	rec->is_checker = 0;
 	set_face_normal(rec, ray, vec_mult(cy->axis, -1));
 	return (1);
 }
@@ -89,7 +87,6 @@ static int	hit_top_cap(t_cylinder *cy, t_ray ray, t_range range,
 	rec->t = t;
 	rec->p = p;
 	rec->color = cy->color;
-	rec->is_checker = 0;
 	set_face_normal(rec, ray, cy->axis);
 	return (1);
 }
@@ -101,6 +98,7 @@ static int	hit_caps(t_cylinder *cy, t_ray ray, t_range range,
 	int				hit;
 
 	hit = 0;
+	ft_bzero(&tmp, sizeof(t_hit_record));
 	if (hit_bottom_cap(cy, ray, range, &tmp))
 	{
 		*rec = tmp;
@@ -112,6 +110,7 @@ static int	hit_caps(t_cylinder *cy, t_ray ray, t_range range,
 		*rec = tmp;
 		hit = 1;
 	}
+	rec->obj_type = OBJ_CYLINDER;
 	return (hit);
 }
 

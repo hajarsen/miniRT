@@ -38,13 +38,35 @@ void	put_pixel(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+static int	toggle_checkerboard(int keycode, t_minirt *data)
+{
+	if (keycode == KEY_P)
+	{
+		data->check_planes = !data->check_planes;
+		return (1);
+	}
+	else if (keycode == KEY_S)
+	{
+		data->check_spheres = !data->check_spheres;
+		return (1);
+	}
+	else if (keycode == KEY_C)
+	{
+		data->check_cylinders = !data->check_cylinders;
+		return (1);
+	}
+	return (0);
+}
+
 int	key_hook(int keycode, t_minirt *data)
 {
+	int	re_render;
+
 	if (keycode == XK_Escape || keycode == 65307)
 		return (close_window(data));
-	if (keycode == KEY_C)
+	re_render = toggle_checkerboard(keycode, data);
+	if (re_render)
 	{
-		data->checkers_on = !data->checkers_on;
 		render_scene(data);
 		mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	}

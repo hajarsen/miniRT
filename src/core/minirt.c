@@ -18,7 +18,9 @@ static int	parse_and_init(t_scene *scene, t_minirt *minirt, char *filename)
 		return (0);
 	ft_bzero(minirt, sizeof(t_minirt));
 	minirt->scene = scene;
-	minirt->checkers_on = 0;
+	minirt->check_planes = 0;
+	minirt->check_spheres = 0;
+	minirt->check_cylinders = 0;
 	if (!init_window(minirt))
 	{
 		clean_scene(scene);

@@ -5,6 +5,8 @@ LDFLAGS = -lm -lmlx -lXext -lX11
 
 SRC = src/core/minirt.c \
       src/core/colors.c \
+      src/core/lighting.c \
+      src/core/checkerboard.c \
       src/core/render_rt.c \
       src/core/render_utils.c \
       src/core/window.c \
