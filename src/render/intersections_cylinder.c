@@ -6,23 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:14:50 by hrhilane          #+#    #+#             */
-/*   Updated: 2026/01/02 20:44:34 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 21:15:18 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static int	fill_body_record(t_hit_record *rec, t_cylinder *cy,
-				t_ray ray, double t, t_point3 p)
-{
-	rec->t = t;
-	rec->p = p;
-	set_face_normal(rec, ray, get_body_normal(cy, p));
-	rec->color = cy->color;
-	rec->obj_type = OBJ_CYLINDER;
-	get_cylinder_uv(rec, cy);
-	return (1);
-}
 
 static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 		t_hit_record *rec)
@@ -40,7 +28,7 @@ static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 		{
 			p = ray_at(ray, t[i]);
 			if (is_within_height(cy, p))
-				return (fill_body_record(rec, cy, ray, t[i], p));
+				return (fill_body_record(rec, (t_body_data){cy, ray, t[i], p}));
 		}
 		i++;
 	}
