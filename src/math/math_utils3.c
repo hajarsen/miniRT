@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:40:45 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/01 13:57:04 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 04:24:25 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ bool	is_normalized(t_vector v)
 	double	len;
 
 	len = vector_length(v);
-	return (fabs(len - 1.0) < 1e-4);
+	return (fabs(len - 1.0) < 1e-3);
 }

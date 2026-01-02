@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:50:40 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:41:58 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 04:08:34 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	parse_camera(t_scene *scene, char **tokens)
 		return (parse_error("Camera: invalid orientation"));
 	if (!is_normalized(scene->camera.orientation))
 		return (parse_error("Camera orientation must be normalized"));
+	scene->camera.orientation = vec_unit(scene->camera.orientation);
 	if (!parse_float(&scene->camera.fov, tokens[3]))
 		return (parse_error("Camera: invalid FOV"));
 	if (!in_interval(scene->camera.fov, 0.0, 180.0))

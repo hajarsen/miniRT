@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:51:16 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:42:17 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 04:28:31 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ int	parse_cylinder(t_scene *scene, char **tokens)
 		return (parse_error("Cylinder: invalid axis"));
 	if (!is_normalized(cylinder.axis))
 		return (parse_error("Cylinder axis must be normalized"));
-	if (!parse_float(&cylinder.diameter, tokens[3]))
-		return (parse_error("Cylinder: invalid diameter"));
-	if (cylinder.diameter <= 0)
-		return (parse_error("Cylinder diameter must be > 0"));
-	if (!parse_float(&cylinder.height, tokens[4]))
-		return (parse_error("Cylinder: invalid height"));
-	if (cylinder.height <= 0)
-		return (parse_error("Cylinder height must be > 0"));
+	cylinder.axis = vec_unit(cylinder.axis);
+	if (!parse_float(&cylinder.diameter, tokens[3]) || cylinder.diameter <= 0)
+		return (parse_error("Cylinder: invalid diameter or must be > 0"));
+	if (!parse_float(&cylinder.height, tokens[4]) || cylinder.height <= 0)
+		return (parse_error("Cylinder: invalid height or must be > 0"));
 	if (!parse_color(&color, tokens[5]))
 		return (parse_error("Cylinder: invalid color"));
 	cylinder.color = color;
@@ -54,6 +51,7 @@ int	parse_plane(t_scene *scene, char **tokens)
 		return (parse_error("Plane: invalid normal"));
 	if (!is_normalized(plane.normal))
 		return (parse_error("Plane normal must be normalized"));
+	plane.normal = vec_unit(plane.normal);
 	if (!parse_color(&color, tokens[3]))
 		return (parse_error("Plane: invalid color"));
 	plane.color = color;

@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:13:19 by hrhilane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:42:54 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 04:11:20 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int	hit_plane(t_plane *plane, t_ray ray, t_range range, t_hit_record *rec)
 	rec->p = ray_at(ray, rec->t);
 	rec->color = plane->color;
 	rec->is_checker = 1;
-	set_face_normal(rec, ray, vec_unit(plane->normal));
+	set_face_normal(rec, ray, plane->normal);
 	return (1);
 }

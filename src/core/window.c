@@ -74,4 +74,3 @@ int	init_window(t_minirt *data)
 	mlx_hook(data->win, 17, 0, close_window, data);
 	return (1);
 }
-
