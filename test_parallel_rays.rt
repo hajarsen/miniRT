@@ -1,0 +1,14 @@
+A 0.1 255,255,255
+C 0,0,-5 0,0,1 70
+L 0,5,0 0.7 255,255,255
+
+# Rayon parallèle à l'axe du cylindre (devrait manquer ou intersecter les caps)
+cy 0,0,0 0,0,1 1 10 255,0,0
+
+# Rayon perpendiculaire à l'axe
+cy 3,0,0 0,1,0 1 10 0,255,0
+
+# Rayon à 45 degrés
+cy -3,0,0 0.707,0,0.707 1 10 0,0,255
+
+pl 0,-2,0 0,1,0 150,150,150

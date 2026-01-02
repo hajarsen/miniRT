@@ -6,12 +6,12 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:14:50 by hrhilane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:42:43 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 03:09:51 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+/*
 static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 		t_hit_record *rec)
 {
@@ -36,6 +36,35 @@ static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 			rec->color = cy->color;
 			return (1);
 		}
+	}
+	return (0);
+}
+*/
+
+static int hit_body(t_cylinder *cy, t_ray ray, t_range range, t_hit_record *rec)
+{
+	double t[2];
+	int i;
+	
+	if (!solve_cy(vec_sub(ray.origin, cy->center), ray, cy, t))
+		return (0);
+	i = 0;
+	while (i < 2)
+	{
+		if (t[i] > range.t_min && t[i] < range.t_max)
+		{
+			t_point3 p = ray_at(ray, t[i]);
+			if (is_within_height(cy, p))
+			{
+				rec->t = t[i];
+				rec->p = p;
+				set_face_normal(rec, ray, get_body_normal(cy, p));
+				rec->color = cy->color;
+				rec->is_checker = 0;
+				return (1);
+			}
+		}
+		i++;
 	}
 	return (0);
 }
