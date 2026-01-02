@@ -24,6 +24,7 @@ SRC = src/core/minirt.c \
       src/math/math_utils4.c \
       src/render/camera.c \
       src/render/intersections_cylinder.c \
+      src/render/intersections_cylinder_utils.c \
       src/render/intersections_manager.c \
       src/render/intersections_simple.c \
       src/render/intersections_utils.c \
