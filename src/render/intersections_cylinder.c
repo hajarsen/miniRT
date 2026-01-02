@@ -6,46 +6,19 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:14:50 by hrhilane          #+#    #+#             */
-/*   Updated: 2026/01/02 03:09:51 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 03:36:52 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-/*
+
 static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 		t_hit_record *rec)
 {
 	double		t[2];
+	int			i;
 	t_point3	p;
 
-	if (!solve_cy(vec_sub(ray.origin, cy->center), ray, cy, t))
-		return (0);
-	if ((t[0] > range.t_min && t[0] < range.t_max) || (t[1] > range.t_min
-			&& t[1] < range.t_max))
-	{
-		if (t[0] > range.t_min && t[0] < range.t_max)
-			rec->t = t[0];
-		else
-			rec->t = t[1];
-		p = ray_at(ray, rec->t);
-		if (is_within_height(cy, p))
-		{
-			rec->p = p;
-			rec->is_checker = 0;
-			set_face_normal(rec, ray, get_body_normal(cy, p));
-			rec->color = cy->color;
-			return (1);
-		}
-	}
-	return (0);
-}
-*/
-
-static int hit_body(t_cylinder *cy, t_ray ray, t_range range, t_hit_record *rec)
-{
-	double t[2];
-	int i;
-	
 	if (!solve_cy(vec_sub(ray.origin, cy->center), ray, cy, t))
 		return (0);
 	i = 0;
@@ -53,7 +26,7 @@ static int hit_body(t_cylinder *cy, t_ray ray, t_range range, t_hit_record *rec)
 	{
 		if (t[i] > range.t_min && t[i] < range.t_max)
 		{
-			t_point3 p = ray_at(ray, t[i]);
+			p = ray_at(ray, t[i]);
 			if (is_within_height(cy, p))
 			{
 				rec->t = t[i];
@@ -69,8 +42,8 @@ static int hit_body(t_cylinder *cy, t_ray ray, t_range range, t_hit_record *rec)
 	return (0);
 }
 
-static int	hit_bottom_cap(t_cylinder *cy, t_ray ray,
-		t_range range, t_hit_record *rec)
+static int	hit_bottom_cap(t_cylinder *cy, t_ray ray, t_range range,
+		t_hit_record *rec)
 {
 	double		t;
 	t_point3	p;
@@ -95,8 +68,8 @@ static int	hit_bottom_cap(t_cylinder *cy, t_ray ray,
 	return (1);
 }
 
-static int	hit_top_cap(t_cylinder *cy, t_ray ray,
-		t_range range, t_hit_record *rec)
+static int	hit_top_cap(t_cylinder *cy, t_ray ray, t_range range,
+		t_hit_record *rec)
 {
 	double		t;
 	t_point3	p;
@@ -121,8 +94,8 @@ static int	hit_top_cap(t_cylinder *cy, t_ray ray,
 	return (1);
 }
 
-static int	hit_caps(t_cylinder *cy, t_ray ray,
-		t_range range, t_hit_record *rec)
+static int	hit_caps(t_cylinder *cy, t_ray ray, t_range range,
+		t_hit_record *rec)
 {
 	t_hit_record	tmp;
 	int				hit;
