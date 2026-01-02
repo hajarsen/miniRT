@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:12:39 by hrhilane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:42:59 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 03:28:53 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ int	is_within_height(t_cylinder *cy, t_point3 p)
 {
 	t_vector	cp;
 	double		projection;
-
+	double		half_height;
+	
 	cp = vec_sub(p, cy->center);
 	projection = vec_dot(cp, cy->axis);
-	return (projection >= -cy->height * 0.5 && projection <= cy->height * 0.5);
+	half_height = cy->height * 0.5;
+	return (projection >= -half_height && projection <= half_height);
 }
 
 t_vector	get_body_normal(t_cylinder *cy, t_point3 p)
