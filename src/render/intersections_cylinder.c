@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:14:50 by hrhilane          #+#    #+#             */
-/*   Updated: 2026/01/02 04:11:51 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 19:26:52 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,20 @@ static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 {
 	double		t[2];
 	t_point3	p;
+	int			i;
 
 	if (!solve_cy(vec_sub(ray.origin, cy->center), ray, cy, t))
 		return (0);
-	if ((t[0] > range.t_min && t[0] < range.t_max) || (t[1] > range.t_min
-			&& t[1] < range.t_max))
+	i = 0;
+	while (i < 2)
 	{
-		if (t[0] > range.t_min && t[0] < range.t_max)
-			rec->t = t[0];
-		else
-			rec->t = t[1];
-		p = ray_at(ray, rec->t);
-		if (is_within_height(cy, p))
+		if (t[i] > range.t_min && t[i] < range.t_max)
 		{
-			rec->p = p;
-			set_face_normal(rec, ray, get_body_normal(cy, p));
-			rec->color = cy->color;
-			rec->obj_type = OBJ_CYLINDER;
-			get_cylinder_uv(rec, cy);
-			return (1);
+			p = ray_at(ray, t[i]);
+			if (is_within_height(cy, p))
+				return (fill_body_record(rec, cy, ray, t[i], p));
 		}
+		i++;
 	}
 	return (0);
 }
