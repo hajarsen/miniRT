@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/02 20:55:16 by hsennane          #+#    #+#             */
+/*   Updated: 2026/01/02 20:55:19 by hsennane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -179,7 +191,7 @@ t_vector			vec_sub(t_vector v, t_vector w);
 t_vector			vec_cross(t_vector v, t_vector w);
 float				vec_dot(t_vector v, t_vector w);
 t_vector			vec_unit(t_vector v);
-t_vector	vec_scal(t_vector v, float scal);
+t_vector			vec_scal(t_vector v, float scal);
 t_vector			vect_invert(t_vector v);
 float				distance(t_vector v, t_vector w);
 t_vector			reflect_vect(t_vector v, t_vector n);
