@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:40:21 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:43:48 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:21:51 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_vector	create_vect(float x, float y, float z)
 	return (vect);
 }
 
-t_vector	vect_add(t_vector v, t_vector w)
+t_vector	vec_add(t_vector v, t_vector w)
 {
 	t_vector	res;
 
@@ -32,7 +32,7 @@ t_vector	vect_add(t_vector v, t_vector w)
 	return (res);
 }
 
-t_vector	vect_sub(t_vector v, t_vector w)
+t_vector	vec_sub(t_vector v, t_vector w)
 {
 	t_vector	res;
 
@@ -42,7 +42,7 @@ t_vector	vect_sub(t_vector v, t_vector w)
 	return (res);
 }
 
-t_vector	cross_product(t_vector v, t_vector w)
+t_vector	vec_cross(t_vector v, t_vector w)
 {
 	t_vector	res;
 
@@ -52,7 +52,7 @@ t_vector	cross_product(t_vector v, t_vector w)
 	return (res);
 }
 
-float	dot_product(t_vector v, t_vector w)
+float	vec_dot(t_vector v, t_vector w)
 {
 	float	res;
 

@@ -6,18 +6,18 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:40:53 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/01 13:58:22 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:28:29 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vector	normalize(t_vector v)
+t_vector	vec_unit(t_vector v)
 {
 	float		length;
 	t_vector	res;
 
-	length = vector_length(v);
+	length = vec_length(v);
 	if (length == 0)
 		return (v);
 	res.x = v.x / length;
@@ -26,7 +26,7 @@ t_vector	normalize(t_vector v)
 	return (res);
 }
 
-t_vector	vect_scal(t_vector v, float scal)
+t_vector	vec_scal(t_vector v, float scal)
 {
 	t_vector	res;
 
@@ -36,7 +36,7 @@ t_vector	vect_scal(t_vector v, float scal)
 	return (res);
 }
 
-double	vector_length(t_vector v)
+double	vec_length(t_vector v)
 {
 	double	vec_len;
 

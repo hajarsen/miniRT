@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:12:39 by hrhilane          #+#    #+#             */
-/*   Updated: 2026/01/02 03:35:36 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:45:16 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_face_normal(t_hit_record *rec, t_ray ray, t_vector outward_normal)
 	if (rec->front_face)
 		rec->normal = outward_normal;
 	else
-		rec->normal = vec_mult(outward_normal, -1.0);
+		rec->normal = vec_scal(outward_normal, -1.0);
 }
 
 int	is_within_height(t_cylinder *cy, t_point3 p)
@@ -40,7 +40,7 @@ t_vector	get_body_normal(t_cylinder *cy, t_point3 p)
 	t_vector	radial;
 
 	cp = vec_sub(p, cy->center);
-	axis_component = vec_mult(cy->axis, vec_dot(cp, cy->axis));
+	axis_component = vec_scal(cy->axis, vec_dot(cp, cy->axis));
 	radial = vec_sub(cp, axis_component);
 	return (vec_unit(radial));
 }
@@ -61,9 +61,9 @@ int	solve_cy(t_vector oc, t_ray ray, t_cylinder *cy, double *t)
 	t_vector	oc_perp;
 	t_eq		eq;
 
-	d_perp = vec_sub(ray.direction, vec_mult(cy->axis, vec_dot(ray.direction,
+	d_perp = vec_sub(ray.direction, vec_scal(cy->axis, vec_dot(ray.direction,
 					cy->axis)));
-	oc_perp = vec_sub(oc, vec_mult(cy->axis, vec_dot(oc, cy->axis)));
+	oc_perp = vec_sub(oc, vec_scal(cy->axis, vec_dot(oc, cy->axis)));
 	eq.a = vec_dot(d_perp, d_perp);
 	eq.b = 2.0 * vec_dot(oc_perp, d_perp);
 	eq.c = vec_dot(oc_perp, oc_perp) - pow(cy->diameter / 2.0, 2);

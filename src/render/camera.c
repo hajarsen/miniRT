@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:13:59 by hrhilane          #+#    #+#             */
-/*   Updated: 2026/01/01 14:04:09 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:42:24 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	build_camera_basis(t_camera *cam, t_vector *u, t_vector *v,
 {
 	t_vector	world_up;
 
-	*w = vec_unit(vec_mult(cam->orientation, -1.0));
+	*w = vec_unit(vec_scal(cam->orientation, -1.0));
 	world_up = (t_vector){0, 1, 0};
 	if (fabs(w->y) > 0.999)
 		world_up = (t_vector){1, 0, 0};
@@ -43,14 +43,14 @@ static void	calculate_pixel00_location(t_camera *cam, double focal_length)
 {
 	t_point3	viewport_upper_left;
 
-	viewport_upper_left = vec_add(cam->viewpoint, vec_mult(cam->orientation,
+	viewport_upper_left = vec_add(cam->viewpoint, vec_scal(cam->orientation,
 				focal_length));
 	viewport_upper_left = vec_sub(viewport_upper_left, vect_div(cam->horizontal,
 				2.0));
 	viewport_upper_left = vec_sub(viewport_upper_left, vect_div(cam->vertical,
 				2.0));
 	cam->pixel00_loc = vec_add(viewport_upper_left,
-			vec_mult(vec_add(cam->pixel_delta_u, cam->pixel_delta_v), 0.5));
+			vec_scal(vec_add(cam->pixel_delta_u, cam->pixel_delta_v), 0.5));
 }
 
 static void	set_camera_vectors(t_camera *cam, double vp_w, double vp_h)
@@ -60,8 +60,8 @@ static void	set_camera_vectors(t_camera *cam, double vp_w, double vp_h)
 	t_vector	w;
 
 	build_camera_basis(cam, &u, &v, &w);
-	cam->horizontal = vec_mult(u, vp_w);
-	cam->vertical = vec_mult(v, vp_h);
+	cam->horizontal = vec_scal(u, vp_w);
+	cam->vertical = vec_scal(v, vp_h);
 }
 
 void	setup_camera(t_camera *cam, int img_width, int img_height)

@@ -6,11 +6,23 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:14:50 by hrhilane          #+#    #+#             */
-/*   Updated: 2026/01/02 19:26:52 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:44:34 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static int	fill_body_record(t_hit_record *rec, t_cylinder *cy,
+				t_ray ray, double t, t_point3 p)
+{
+	rec->t = t;
+	rec->p = p;
+	set_face_normal(rec, ray, get_body_normal(cy, p));
+	rec->color = cy->color;
+	rec->obj_type = OBJ_CYLINDER;
+	get_cylinder_uv(rec, cy);
+	return (1);
+}
 
 static int	hit_body(t_cylinder *cy, t_ray ray, t_range range,
 		t_hit_record *rec)
@@ -46,7 +58,7 @@ static int	hit_bottom_cap(t_cylinder *cy, t_ray ray, t_range range,
 	denom = vec_dot(ray.direction, cy->axis);
 	if (fabs(denom) < 1e-8)
 		return (0);
-	bottom = vec_sub(cy->center, vec_mult(cy->axis, cy->height * 0.5));
+	bottom = vec_sub(cy->center, vec_scal(cy->axis, cy->height * 0.5));
 	t = vec_dot(vec_sub(bottom, ray.origin), cy->axis) / denom;
 	if (t <= range.t_min || t >= range.t_max)
 		return (0);
@@ -56,7 +68,7 @@ static int	hit_bottom_cap(t_cylinder *cy, t_ray ray, t_range range,
 	rec->t = t;
 	rec->p = p;
 	rec->color = cy->color;
-	set_face_normal(rec, ray, vec_mult(cy->axis, -1));
+	set_face_normal(rec, ray, vec_scal(cy->axis, -1));
 	return (1);
 }
 
@@ -71,7 +83,7 @@ static int	hit_top_cap(t_cylinder *cy, t_ray ray, t_range range,
 	denom = vec_dot(ray.direction, cy->axis);
 	if (fabs(denom) < 1e-8)
 		return (0);
-	top = vec_add(cy->center, vec_mult(cy->axis, cy->height * 0.5));
+	top = vec_add(cy->center, vec_scal(cy->axis, cy->height * 0.5));
 	t = vec_dot(vec_sub(top, ray.origin), cy->axis) / denom;
 	if (t <= range.t_min || t >= range.t_max)
 		return (0);

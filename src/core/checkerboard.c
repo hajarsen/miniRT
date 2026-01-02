@@ -36,7 +36,7 @@ t_vector	get_cylinder_radial(t_vector p_local, t_vector axis)
 	t_vector	proj;
 	t_vector	radial;
 
-	proj = vec_mult(axis, vec_dot(p_local, axis));
+	proj = vec_scal(axis, vec_dot(p_local, axis));
 	radial = vec_sub(p_local, proj);
 	return (radial);
 }

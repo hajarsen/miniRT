@@ -168,32 +168,22 @@ double				ft_min(double a, double b);
 double				ft_max(double a, double b);
 double				ft_abs(double x);
 double				ft_power(double base, int exp);
-double				vector_length(t_vector v);
+double				vec_length(t_vector v);
 bool				float_eq(double a, double b);
 bool				in_interval(double value, double min_val, double max_val);
 bool				is_normalized(t_vector v);
 
 t_vector			create_vect(float x, float y, float z);
-t_vector			vect_add(t_vector v, t_vector w);
-t_vector			vect_sub(t_vector v, t_vector w);
-t_vector			cross_product(t_vector v, t_vector w);
-float				dot_product(t_vector v, t_vector w);
-t_vector			normalize(t_vector v);
+t_vector			vec_add(t_vector v, t_vector w);
+t_vector			vec_sub(t_vector v, t_vector w);
+t_vector			vec_cross(t_vector v, t_vector w);
+float				vec_dot(t_vector v, t_vector w);
+t_vector			vec_unit(t_vector v);
+t_vector	vec_scal(t_vector v, float scal);
 t_vector			vect_invert(t_vector v);
-t_vector			vect_scal(t_vector v, float scal);
-
 float				distance(t_vector v, t_vector w);
 t_vector			reflect_vect(t_vector v, t_vector n);
 t_vector			refract_vect(t_vector v, t_vector n, float eta);
-
-# define vec_add vect_add
-# define vec_sub vect_sub
-# define vec_mult vect_scal
-# define vec_dot dot_product
-# define vec_cross cross_product
-# define vec_length vector_length
-# define vec_unit normalize
-
 t_vector			vect_div(t_vector v, double t);
 t_point3			ray_at(t_ray ray, double t);
 t_ray				get_ray(t_camera *cam, double u, double v);

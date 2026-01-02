@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:16:35 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/01 15:51:12 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:37:50 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_ray	get_ray(t_camera *cam, double u, double v)
 
 	ray.origin = cam->viewpoint;
 	viewport_point = cam->pixel00_loc;
-	viewport_point = vec_add(viewport_point, vec_mult(cam->horizontal, u));
-	viewport_point = vec_add(viewport_point, vec_mult(cam->vertical, v));
+	viewport_point = vec_add(viewport_point, vec_scal(cam->horizontal, u));
+	viewport_point = vec_add(viewport_point, vec_scal(cam->vertical, v));
 	ray.direction = vec_sub(viewport_point, ray.origin);
 	ray.direction = vec_unit(ray.direction);
 	return (ray);
@@ -37,7 +37,7 @@ int	is_in_shadow(t_scene *scene, t_hit_record *rec, t_light *light)
 	light_dist = vec_length(light_dir);
 	light_dir = vec_unit(light_dir);
 	shadow_ray.origin = vec_add(rec->p,
-			vec_mult(rec->normal, EPSILON_SHADOW));
+			vec_scal(rec->normal, EPSILON_SHADOW));
 	shadow_ray.direction = light_dir;
 	if (hit_anything(scene, shadow_ray,
 			(t_range){EPSILON_SHADOW, light_dist - EPSILON_SHADOW}, &tmp))
