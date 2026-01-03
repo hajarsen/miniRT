@@ -1,4 +1,4 @@
-NAME		= miniRT
+NAME		      = miniRT
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -I./includes -I./lib/libft -I./lib/get_next_line
 LDFLAGS		= -lm -lmlx -lXext -lX11
@@ -64,7 +64,9 @@ GNL_SRC			= lib/get_next_line/get_next_line.c \
 OBJ_MANDATORY	= $(SRC_MANDATORY:.c=.o) $(GNL_SRC:.c=.o)
 OBJ_BONUS		= $(SRC_BONUS:.c=.o) $(GNL_SRC:.c=.o)
 
-HEADERS			= includes/minirt.h
+HEADERS = includes/minirt.h \
+          lib/libft/libft.h \
+          lib/get_next_line/get_next_line.h
 
 MANDATORY_MARK	= .mandatory_mark
 BONUS_MARK		= .bonus_mark
