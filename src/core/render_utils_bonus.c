@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_utils.c                                     :+:      :+:    :+:   */
+/*   render_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hrhilane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/30 03:16:35 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/02 20:37:50 by hsennane         ###   ########.fr       */
+/*   Created: 2026/01/03 02:37:02 by hrhilane          #+#    #+#             */
+/*   Updated: 2026/01/03 02:37:04 by hrhilane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,34 @@ int	color_to_int(t_color color)
 void	get_cylinder_uv(t_hit_record *rec, t_cylinder *cy)
 {
 	t_vector	p_local;
+	t_vector	radial;
+	double		radial_len;
 
 	p_local = vec_sub(rec->p, cy->center);
 	rec->v = vec_dot(p_local, cy->axis) / cy->height + 0.5;
-	rec->u = 0.0;
+	radial = get_cylinder_radial(p_local, cy->axis);
+	radial_len = vec_length(radial);
+	if (radial_len < 1e-8)
+	{
+		rec->u = 0.0;
+		return ;
+	}
+	radial = vec_unit(radial);
+	calculate_cylinder_u(rec, cy, radial);
 }
 
 void	calculate_cylinder_u(t_hit_record *rec, t_cylinder *cy,
 		t_vector radial)
 {
-	(void)rec;
-	(void)cy;
-	(void)radial;
+	t_vector	guide;
+	t_vector	u_ref;
+	t_vector	v_ref;
+
+	guide = (t_vector){0, 1, 0};
+	if (fabs(cy->axis.y) > 0.9)
+		guide = (t_vector){1, 0, 0};
+	u_ref = vec_unit(vec_cross(guide, cy->axis));
+	v_ref = vec_unit(vec_cross(cy->axis, u_ref));
+	rec->u = (atan2(vec_dot(radial, v_ref), vec_dot(radial, u_ref)) + M_PI)
+		/ (2.0 * M_PI);
 }
