@@ -5,7 +5,7 @@ t_color	get_plane_checkerboard(t_hit_record *rec)
 	double	size;
 	int		checker;
 
-	size = 2.5;
+	size = 2.6;
 	checker = (int)(floor(rec->p.x / size + EPSILON) + floor(rec->p.y / size
 				+ EPSILON) + floor(rec->p.z / size + EPSILON));
 	if (checker % 2 != 0)

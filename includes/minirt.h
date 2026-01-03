@@ -119,16 +119,15 @@ typedef struct s_camera
 	t_point3		pixel00_loc;
 	t_vector		pixel_delta_u;
 	t_vector		pixel_delta_v;
-}	
-				t_camera;
-				
+}					t_camera;
+
 typedef struct s_body_data
 {
-    t_cylinder  *cy;
-    t_ray       ray;
-    double      t_val;
-    t_point3    p;
-} t_body_data;
+	t_cylinder		*cy;
+	t_ray			ray;
+	double			t_val;
+	t_point3		p;
+}					t_body_data;
 
 typedef struct s_light
 {
@@ -264,7 +263,7 @@ void				set_face_normal(t_hit_record *rec, t_ray ray,
 						t_vector outward_normal);
 int					color_to_int(t_color color);
 int					solve_cy(t_vector oc, t_ray ray, t_cylinder *cy, double *t);
-int	fill_body_record(t_hit_record *rec, t_body_data data);
+int					fill_body_record(t_hit_record *rec, t_body_data data);
 
 void				get_cylinder_uv(t_hit_record *rec, t_cylinder *cy);
 void				calculate_cylinder_u(t_hit_record *rec, t_cylinder *cy,
