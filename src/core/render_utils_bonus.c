@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrhilane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 02:37:02 by hrhilane          #+#    #+#             */
-/*   Updated: 2026/01/03 02:37:04 by hrhilane         ###   ########.fr       */
+/*   Updated: 2026/01/06 03:07:54 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,6 @@ int	is_in_shadow(t_scene *scene, t_hit_record *rec, t_light *light)
 	return (0);
 }
 
-int	color_to_int(t_color color)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = (int)(255.999 * fmin(1.0, color.x));
-	g = (int)(255.999 * fmin(1.0, color.y));
-	b = (int)(255.999 * fmin(1.0, color.z));
-	return (r << 16 | g << 8 | b);
-}
-
 void	get_cylinder_uv(t_hit_record *rec, t_cylinder *cy)
 {
 	t_vector	p_local;
@@ -90,4 +78,16 @@ void	calculate_cylinder_u(t_hit_record *rec, t_cylinder *cy,
 	v_ref = vec_unit(vec_cross(cy->axis, u_ref));
 	rec->u = (atan2(vec_dot(radial, v_ref), vec_dot(radial, u_ref)) + M_PI)
 		/ (2.0 * M_PI);
+}
+
+int	color_to_int(t_color color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (int)(255.999 * fmin(1.0, color.x));
+	g = (int)(255.999 * fmin(1.0, color.y));
+	b = (int)(255.999 * fmin(1.0, color.z));
+	return (r << 16 | g << 8 | b);
 }

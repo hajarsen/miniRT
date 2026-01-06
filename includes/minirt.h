@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 20:55:16 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/02 21:14:38 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/06 03:38:10 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
 # endif
+# define VEC_ADD vect_add
+# define VEC_SUB vect_sub
+# define VEC_MULT vect_scal
+# define VEC_DOT dot_product
+# define VEC_CROSS cross_product
+# define VEC_LENGTH vector_length
+# define VEC_UNIT normalize
 
 typedef struct s_vector
 {
@@ -212,7 +219,7 @@ int					parse_rt_file(t_scene *scene, const char *filename);
 char				*trim_line(char *line);
 int					parse_line(t_scene *scene, char *line);
 int					parse_error(const char *msg);
-
+int					handle_parse_error(t_scene *scene, char *line, int fd);
 int					parse_sphere(t_scene *scene, char **tokens);
 int					parse_plane(t_scene *scene, char **tokens);
 int					parse_cylinder(t_scene *scene, char **tokens);
@@ -227,6 +234,7 @@ int					parse_float(double *out, const char *str);
 
 void				init_scene(t_scene *scene);
 void				clean_scene(t_scene *scene);
+void				cleanup_gnl(int fd);
 int					add_sphere(t_scene *scene, t_sphere sphere);
 int					add_plane(t_scene *scene, t_plane plane);
 int					add_cylinder(t_scene *scene, t_cylinder cylinder);

@@ -1,5 +1,5 @@
 NAME = get_next_line.a
-CFILES = get_next_line.c get_next_line_utils.c
+CFILES = get_next_line.c
 OFILES = $(CFILES:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -23,3 +23,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+.SECONDARY = $(OFILES)

@@ -6,10 +6,11 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 21:05:24 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/03 03:37:30 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/05 15:53:18 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libft/libft.h"
 #include "get_next_line.h"
 
 static void	free_null(char **ptr)
@@ -72,6 +73,16 @@ static char	*read_line(int fd, char **buffer, char *read_return)
 	return (join_line(nl - *buffer + 1, buffer));
 }
 
+static char	*ft_check_fd(int fd, char **buffer)
+{
+	if (fd == -1)
+	{
+		free_null(buffer);
+		return (NULL);
+	}
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
@@ -79,7 +90,7 @@ char	*get_next_line(int fd)
 	char		*read_return;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		ft_check_fd(fd, &buffer);
 	read_return = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!read_return)
 		return (NULL);

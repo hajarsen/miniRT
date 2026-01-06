@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/28 20:07:33 by hajar             #+#    #+#             */
-/*   Updated: 2025/12/30 03:43:04 by hsennane         ###   ########.fr       */
+/*   Created: 2025/12/28 20:07:33 by hsennane          #+#    #+#             */
+/*   Updated: 2026/01/06 03:23:45 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,20 @@ void	free_str_array(char **arr)
 		i++;
 	}
 	free(arr);
+}
+
+void	cleanup_gnl(int fd)
+{
+	char	*line;
+
+	if (fd >= 0)
+	{
+		line = get_next_line(fd);
+		while (line != NULL)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+	}
+	get_next_line(-1);
 }

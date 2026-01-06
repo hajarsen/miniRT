@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 21:07:41 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/03 03:32:50 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/05 15:43:28 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,5 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *str, int n);
-size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *str);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:52:01 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/01 14:11:01 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/06 03:31:27 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,7 @@ static int	parse_rt_file_util(t_scene *scene, const char *filename)
 	{
 		line_num++;
 		if (!parse_line(scene, line))
-		{
-			free(line);
-			close(fd);
-			clean_scene(scene);
-			return (0);
-		}
+			return (handle_parse_error(scene, line, fd));
 		free(line);
 		line = get_next_line(fd);
 	}
