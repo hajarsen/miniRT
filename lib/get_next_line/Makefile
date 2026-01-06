@@ -6,6 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
 
+.SECONDARY: $(OFILES)
+
 all: $(NAME)
 
 $(NAME): $(OFILES)
@@ -23,4 +25,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-.SECONDARY = $(OFILES)

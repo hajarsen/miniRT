@@ -67,21 +67,23 @@ OBJ_BONUS	= $(SRC_BONUS:.c=.o) $(GNL_SRC:.c=.o)
 MAND_MARK	= .mandatory_mark
 BONUS_MARK	= .bonus_mark
 
+.SECONDARY: $(OBJ_BONUS) $(OBJ_MAND)
+
 all: $(MAND_MARK)
 
 $(MAND_MARK): $(OBJ_MAND)
-	@rm -f $(BONUS_MARK)
-	@make -C lib/libft
-	@$(CC) $(OBJ_MAND) -Llib/libft -lft $(LDFLAGS) -o $(NAME)
+	rm -f $(BONUS_MARK)
+	make -C lib/libft
+	$(CC) $(OBJ_MAND) -Llib/libft -lft $(LDFLAGS) -o $(NAME)
 	@echo "✓ miniRT compiled (mandatory)"
 	@touch $(MAND_MARK)
 
 bonus: $(BONUS_MARK)
 
 $(BONUS_MARK): $(OBJ_BONUS)
-	@rm -f $(MAND_MARK)
-	@make -C lib/libft
-	@$(CC) $(OBJ_BONUS) -Llib/libft -lft $(LDFLAGS) -o $(NAME)
+	rm -f $(MAND_MARK)
+	make -C lib/libft
+	$(CC) $(OBJ_BONUS) -Llib/libft -lft $(LDFLAGS) -o $(NAME)
 	@echo "✓ miniRT compiled (bonus)"
 	@touch $(BONUS_MARK)
 
@@ -89,13 +91,13 @@ $(BONUS_MARK): $(OBJ_BONUS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJ_MAND) $(OBJ_BONUS) $(MAND_MARK) $(BONUS_MARK)
-	@make -C lib/libft clean
+	rm -f $(OBJ_MAND) $(OBJ_BONUS)
+	make -C lib/libft clean
 	@echo "✓ Object files cleaned"
 
 fclean: clean
-	@rm -f $(NAME)
-	@make -C lib/libft fclean
+	rm -f $(NAME) $(MAND_MARK) $(BONUS_MARK)
+	make -C lib/libft fclean
 	@echo "✓ miniRT cleaned"
 
 re: fclean all

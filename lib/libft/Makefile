@@ -13,6 +13,8 @@ CC = cc
 RM = rm -f
 AR = ar rcs
 
+.SECONDARY: $(OFILES)
+
 all: $(NAME)
 
 $(NAME): $(OFILES)
@@ -30,4 +32,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: clean fclean re all
-.SECONDARY = $(OFILES)
