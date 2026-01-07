@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:43:49 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/07 02:10:18 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/07 02:26:52 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static bool	ft_parse_rgb(const char *str, double *value)
 	*value = 0;
 	if (!str || *str == '\0')
 		return (false);
-	if (*str == '+')
-		str++;
 	while (*str >= '0' && *str <= '9')
 	{
 		*value = *value * 10 + (*str - '0');
