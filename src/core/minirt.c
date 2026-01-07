@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 03:16:15 by hsennane          #+#    #+#             */
-/*   Updated: 2025/12/30 03:43:22 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/07 02:14:49 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ static int	parse_and_init(t_scene *scene, t_minirt *minirt, char *filename)
 		return (0);
 	ft_bzero(minirt, sizeof(t_minirt));
 	minirt->scene = scene;
-	minirt->check_planes = 0;
-	minirt->check_spheres = 0;
-	minirt->check_cylinders = 0;
 	if (!init_window(minirt))
 	{
 		clean_scene(scene);
@@ -64,6 +61,7 @@ int	main(int argc, char **argv)
 		parse_error("Usage: ./miniRT <scene.rt>");
 		return (1);
 	}
+	ft_bzero(&scene, sizeof(t_scene));
 	if (!parse_and_init(&scene, &minirt, argv[1]))
 		return (1);
 	print_scene_info(&scene);

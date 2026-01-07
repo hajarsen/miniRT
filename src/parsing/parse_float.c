@@ -6,80 +6,103 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 18:51:06 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/01 13:58:54 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/07 02:12:21 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static const char	*parse_integer_part(const char *str, double *result)
+static int	check_char_type(char c, int *d, int *dot)
 {
-	while (isdigit(*str))
+	if (isdigit(c))
 	{
-		if (*result > DBL_MAX / 10.0 || (*result == DBL_MAX / 10.0 && (*str
-					- '0') > fmod(DBL_MAX, 10.0)))
-			return (NULL);
-		*result = *result * 10 + (*str - '0');
-		str++;
+		(*d)++;
+		return (1);
 	}
-	return (str);
+	if (c == '.')
+	{
+		if (*dot)
+			return (0);
+		*dot = 1;
+		return (1);
+	}
+	return (0);
 }
 
-static const char	*parse_fractional_part(const char *str, double *result)
+static int	check_str_valid(const char *s)
 {
-	double	divisor;
+	int	i;
+	int	d;
+	int	dot;
 
-	divisor = 0.1;
-	while (isdigit(*str))
+	i = 0;
+	d = 0;
+	dot = 0;
+	if (s[i] == '+' || s[i] == '-')
+		i++;
+	while (s[i] && i < 30)
 	{
-		if (DBL_MAX - (*result) < (*str - '0') * divisor)
-			return (NULL);
-		*result += (*str - '0') * divisor;
-		divisor *= 0.1;
-		str++;
+		if (!check_char_type(s[i], &d, &dot))
+			return (0);
+		i++;
+		if (d > 15)
+			return (0);
 	}
-	return (str);
+	if (s[i] != '\0')
+		return (0);
+	if (d == 0)
+		return (0);
+	return (1);
 }
 
-static int	ft_sign(const char **str)
+static int	process_decimal(const char **s, double *r)
 {
-	int	sign;
+	const char	*tmp;
 
-	sign = 1;
-	if (**str == '+' || **str == '-')
-	{
-		if (**str == '-')
-			sign = -1;
-		(*str)++;
-	}
-	return (sign);
+	if (**s != '.')
+		return (1);
+	(*s)++;
+	if (!isdigit(**s))
+		return (0);
+	tmp = parse_fractional_part(*s, r);
+	if (!tmp)
+		return (0);
+	*s = tmp;
+	return (1);
+}
+
+static int	check_final_value(double r)
+{
+	if (r > 1e9 || r < -1e9)
+		return (0);
+	if (r != 0.0 && fabs(r) < 1e-9)
+		return (0);
+	return (1);
 }
 
 int	parse_float(double *out, const char *str)
 {
-	double	result;
-	int		sign;
+	double		res;
+	int			sign;
+	const char	*tmp;
 
-	result = 0;
-	if (!str || *str == '\0')
+	res = 0;
+	if (!str || !*str || !check_str_valid(str))
 		return (0);
-	sign = ft_sign(&str);
+	sign = get_sign(&str);
 	if (!isdigit(*str))
 		return (0);
-	str = parse_integer_part(str, &result);
-	if (!str)
+	tmp = parse_integer_part(str, &res);
+	if (!tmp)
 		return (0);
-	if (*str == '.')
-	{
-		str++;
-		if (!isdigit(*str))
-			return (0);
-		str = parse_fractional_part(str, &result);
-		if (!str)
-			return (0);
-	}
+	str = tmp;
+	if (!process_decimal(&str, &res))
+		return (0);
 	if (*str != '\0')
 		return (0);
-	*out = result * sign;
+	res *= sign;
+	if (!check_final_value(res))
+		return (0);
+	*out = res;
 	return (1);
 }

@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/28 20:07:33 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/07 02:17:36 by hsennane         ###   ########.fr       */
+/*   Created: 2026/01/07 01:36:33 by hajar             #+#    #+#             */
+/*   Updated: 2026/01/07 02:12:54 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	ft_str_arr_len(char **arr)
+void	cleanup_gnl(int fd)
 {
-	int	i;
+	char	*line;
 
-	i = 0;
-	if (!arr)
-		return (0);
-	while (arr[i])
-		i++;
-	return (i);
+	if (fd >= 0)
+	{
+		line = get_next_line(fd);
+		while (line != NULL)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+	}
+	get_next_line(-1);
 }
 
-void	free_str_array(char **arr)
+int	get_sign(const char **s)
 {
-	int	i;
+	int	sign;
 
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
+	sign = 1;
+	if (**s == '+' || **s == '-')
 	{
-		free(arr[i]);
-		i++;
+		if (**s == '-')
+			sign = -1;
+		(*s)++;
 	}
-	free(arr);
+	return (sign);
 }

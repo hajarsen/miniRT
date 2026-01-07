@@ -12,6 +12,7 @@ SRC_MAND	= src/core/minirt.c \
 			  src/parsing/parser.c \
 			  src/parsing/parser_utils.c \
 			  src/parsing/parse_elements.c \
+			  src/parsing/parse_float_utils.c \
 			  src/parsing/parse_float.c \
 			  src/parsing/parse_vector.c \
 			  src/parsing/parse_colors.c \
@@ -28,6 +29,7 @@ SRC_MAND	= src/core/minirt.c \
 			  src/render/intersections_simple.c \
 			  src/render/intersections_utils.c \
 			  src/utils/array.c \
+			  src/utils/utils.c \
 			  src/utils/error.c
 
 SRC_BONUS	= src/core/minirt.c \
@@ -40,6 +42,7 @@ SRC_BONUS	= src/core/minirt.c \
 			  src/parsing/parser.c \
 			  src/parsing/parser_utils.c \
 			  src/parsing/parse_elements.c \
+			  src/parsing/parse_float_utils.c \
 			  src/parsing/parse_float.c \
 			  src/parsing/parse_vector.c \
 			  src/parsing/parse_colors.c \
@@ -56,6 +59,7 @@ SRC_BONUS	= src/core/minirt.c \
 			  src/render/intersections_simple.c \
 			  src/render/intersections_utils.c \
 			  src/utils/array.c \
+			  src/utils/utils.c \
 			  src/utils/error.c
 
 GNL_SRC		= lib/get_next_line/get_next_line.c \

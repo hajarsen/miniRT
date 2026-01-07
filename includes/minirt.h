@@ -6,7 +6,7 @@
 /*   By: hsennane <hsennane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 20:55:16 by hsennane          #+#    #+#             */
-/*   Updated: 2026/01/06 03:38:10 by hsennane         ###   ########.fr       */
+/*   Updated: 2026/01/07 02:18:54 by hsennane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,10 @@ int					parse_light(t_scene *scene, char **tokens);
 bool				parse_color(t_color *color, char *str);
 bool				parse_vector(t_vector *vec, char *str, double min_val,
 						double max_val);
+const char			*parse_integer_part(const char *s, double *r);
+const char			*parse_fractional_part(const char *s, double *r);
 int					parse_float(double *out, const char *str);
+int					get_sign(const char **s);
 
 void				init_scene(t_scene *scene);
 void				clean_scene(t_scene *scene);
